@@ -1,0 +1,40 @@
+{
+  "name": "@content-editor/core",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./utils/caret-target": {
+      "types": "./dist/src/utils/caret-target.d.ts",
+      "default": "./dist/src/utils/caret-target.js"
+    },
+    "./utils/selection-range": {
+      "types": "./dist/src/utils/selection-range.d.ts",
+      "default": "./dist/src/utils/selection-range.js"
+    },
+    "./utils/splice-range": {
+      "types": "./dist/src/utils/splice-range.d.ts",
+      "default": "./dist/src/utils/splice-range.js"
+    },
+    "./utils/slot": {
+      "types": "./dist/src/utils/slot.d.ts",
+      "default": "./dist/src/utils/slot.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf dist"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "dependencies": {
+    "typescript-event-target": "^1.1.2",
+    "usehooks-ts": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "web-streams-polyfill": "^4.2.0"
+  }
+}
