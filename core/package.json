@@ -18,6 +18,10 @@
     "./utils/slot": {
       "types": "./dist/src/utils/slot.d.ts",
       "default": "./dist/src/utils/slot.js"
+    },
+    "./utils/optics": {
+      "types": "./dist/src/utils/optics/index.d.ts",
+      "default": "./dist/src/utils/optics/index.js"
     }
   },
   "scripts": {
