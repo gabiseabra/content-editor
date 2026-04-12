@@ -1,0 +1,34 @@
+import { NonEmpty } from "../utils/non-empty.js";
+import { EditorHistory, type EditorActionCmd } from "./history.js";
+
+type Block = { id: string; text: string };
+
+const block = (id: string, text: string): Block => ({ id, text });
+
+describe("EditorHistory", () => {
+  it("applies compound apply commands in order", () => {
+    const history = new EditorHistory<Block>([
+      block("a", "alpha"),
+      block("b", "bravo"),
+    ]);
+
+    const commands = NonEmpty.create<EditorActionCmd<Block>>(
+      { type: "update", block: block("a", "alpha!") },
+      {
+        type: "split",
+        left: block("a", "al"),
+        right: block("c", "pha!"),
+      },
+      { type: "remove", block: block("b", "bravo") },
+    );
+
+    history.push({
+      type: "apply",
+      actions: commands,
+      targetAfter: { id: "a", start: 0, end: 0 },
+      targetBefore: { id: "a", start: 0, end: 0 },
+    });
+
+    expect(history.getState()).toEqual([block("a", "al"), block("c", "pha!")]);
+  });
+});
