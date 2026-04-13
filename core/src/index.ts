@@ -12,6 +12,11 @@ export {
   type EditorActionBatch,
   type EditorActionCmd,
 } from "./editor/history";
+export {
+  type AnyEditorPlugin,
+  type EditableProps,
+  type EditorPlugin,
+} from "./editor/plugin";
 export { EditorRef } from "./editor/ref";
 export * from "./utils/optics";
 export { SelectionRange } from "./utils/selection-range";
