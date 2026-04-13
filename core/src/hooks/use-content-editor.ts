@@ -1,3 +1,4 @@
+import { autoBind } from "@content-editor/utils/object";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnyBlock, ContentEditor } from "../editor";
 import { execCommand } from "../editor/command";
@@ -5,7 +6,6 @@ import { EditorEvent, EditorEventTarget } from "../editor/event";
 import { EditorAction, EditorHistory } from "../editor/history";
 import { EditorRefMap } from "../editor/ref";
 import { EditorTarget } from "../editor/target";
-import { autoBind } from "../utils/object";
 
 /**
  * Creates shared state & controller for the editor plugins.

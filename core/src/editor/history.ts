@@ -1,5 +1,5 @@
+import { NonEmpty } from "@content-editor/utils/non-empty";
 import { History } from "../utils/history.js";
-import { NonEmpty } from "../utils/non-empty.js";
 import { AnyBlock } from "./index.js";
 import { EditorTarget } from "./target.js";
 

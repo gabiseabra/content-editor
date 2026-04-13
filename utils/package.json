@@ -1,0 +1,62 @@
+{
+  "name": "@content-editor/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/test/expect-visual-selection.d.ts"
+    },
+    "./test/expect-visual-selection": {
+      "types": "./dist/src/test/expect-visual-selection.d.ts",
+      "default": "./dist/src/test/expect-visual-selection.js"
+    },
+    "./test/input-event": {
+      "types": "./dist/src/test/input-event.d.ts",
+      "default": "./dist/src/test/input-event.js"
+    },
+    "./optics": {
+      "types": "./dist/src/optics/index.d.ts",
+      "default": "./dist/src/optics/index.js"
+    },
+    "./array": {
+      "types": "./dist/src/array.d.ts",
+      "default": "./dist/src/array.js"
+    },
+    "./error": {
+      "types": "./dist/src/error.d.ts",
+      "default": "./dist/src/error.js"
+    },
+    "./fp": {
+      "types": "./dist/src/fp.d.ts",
+      "default": "./dist/src/fp.js"
+    },
+    "./non-empty": {
+      "types": "./dist/src/non-empty.d.ts",
+      "default": "./dist/src/non-empty.js"
+    },
+    "./non-nullable": {
+      "types": "./dist/src/non-nullable.d.ts",
+      "default": "./dist/src/non-nullable.js"
+    },
+    "./object": {
+      "types": "./dist/src/object.d.ts",
+      "default": "./dist/src/object.js"
+    },
+    "./slot": {
+      "types": "./dist/src/slot.d.ts",
+      "default": "./dist/src/slot.js"
+    },
+    "./selection-range": {
+      "types": "./dist/src/selection-range.d.ts",
+      "default": "./dist/src/selection-range.js"
+    },
+    "./splice-range": {
+      "types": "./dist/src/splice-range.d.ts",
+      "default": "./dist/src/splice-range.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf dist"
+  }
+}

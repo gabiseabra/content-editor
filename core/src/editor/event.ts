@@ -1,5 +1,5 @@
+import { EmptyObject } from "@content-editor/utils/object";
 import { TypedEventTarget } from "typescript-event-target";
-import { EmptyObject } from "../utils/object.js";
 import { EditorAction } from "./history.js";
 import { AnyBlock, ContentEditor } from "./index.js";
 

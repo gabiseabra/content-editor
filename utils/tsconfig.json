@@ -7,14 +7,12 @@
     "types": [
       "jest",
       "@testing-library/jest-dom",
-      "@content-editor/utils"
     ],
     "outDir": "./dist",
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": [
     "src/**/*",
-    "vite.config.ts"
   ],
   "exclude": [
     "src/**/*.cy.ts",

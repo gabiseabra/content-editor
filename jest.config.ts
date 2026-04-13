@@ -3,7 +3,7 @@
 import type { Config } from "jest";
 
 export default {
-  projects: (["core"] as const).map(
+  projects: (["core", "utils", "test"] as const).map(
     (workspace): Config => ({
       displayName: workspace,
       rootDir: process.cwd(),
@@ -32,10 +32,10 @@ export default {
         "^(\\.{1,2}/.*)\\.js$": "$1",
         "\\.(css|scss|sass)$": "identity-obj-proxy",
       },
-      setupFiles: [`${process.cwd()}/${workspace}/src/test-utils/setup.ts`],
+      setupFiles: [`${process.cwd()}/test/setup.ts`],
       setupFilesAfterEnv: [
         "@testing-library/jest-dom",
-        `${process.cwd()}/${workspace}/src/test-utils/setup-after-env.ts`,
+        `${process.cwd()}/test/setup-after-env.ts`,
       ],
     }),
   ),

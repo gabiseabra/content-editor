@@ -1,4 +1,4 @@
-import { SelectionRange } from "../utils/selection-range.js";
+import { SelectionRange } from "@content-editor/utils/selection-range";
 import { AnyBlock, ContentEditor, ID } from "./index.js";
 import { EditorRef } from "./ref.js";
 

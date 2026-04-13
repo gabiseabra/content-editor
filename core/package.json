@@ -41,6 +41,7 @@
     "react": "^19.2.3"
   },
   "dependencies": {
+    "@content-editor/utils": "*",
     "typescript-event-target": "^1.1.2"
   },
   "devDependencies": {

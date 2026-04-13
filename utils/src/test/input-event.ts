@@ -1,7 +1,7 @@
+import { SelectionRange } from "@content-editor/utils/selection-range";
+import { SpliceRange } from "@content-editor/utils/splice-range";
 import { fireEvent } from "@testing-library/react";
 import { act } from "react";
-import { SelectionRange } from "../utils/selection-range.js";
-import { SpliceRange } from "../utils/splice-range.js";
 
 export const inputEvent = {
   delete: (el: HTMLElement, count = 1, dir: Direction = -1) =>

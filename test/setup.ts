@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
+import { TransformStream } from "node:stream/web";
 import { TextDecoder, TextEncoder } from "node:util";
-import { TransformStream } from "web-streams-polyfill";
 
 globalThis.TextEncoder = TextEncoder;
 globalThis.TextDecoder = TextDecoder;

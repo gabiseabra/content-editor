@@ -1,9 +1,9 @@
+import { NonEmpty } from "@content-editor/utils/non-empty";
 import { useMemo, useRef } from "react";
 import { AnyBlock, ContentEditor } from "../editor";
 import { EditorChangeset } from "../editor/changeset";
 import { EditorAction, EditorActionCmd } from "../editor/history";
 import { EditorTarget } from "../editor/target";
-import { NonEmpty } from "../utils/non-empty";
 import { useEventListener } from "./use-event-listener";
 
 /**

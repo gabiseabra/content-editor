@@ -1,11 +1,11 @@
+import { autoBind } from "@content-editor/utils/object";
+import { Traversal } from "@content-editor/utils/optics";
 import { useEffect, useMemo, useRef } from "react";
 import { AnyBlock, ContentEditor, ID } from "../editor";
 import { execCommand } from "../editor/command";
 import { EditorEvent, EditorEventTarget } from "../editor/event";
 import { EditorAction, EditorHistoryEntry } from "../editor/history";
 import { EditorTarget } from "../editor/target";
-import { autoBind } from "../utils/object";
-import { Traversal } from "../utils/optics";
 
 /**
  * Creates a derived `ContentEditor<TBlock>` that provides a scoped view into

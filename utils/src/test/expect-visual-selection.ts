@@ -1,6 +1,6 @@
+import { never } from "@content-editor/utils/error";
+import { SelectionRange } from "@content-editor/utils/selection-range";
 import type { MatcherFunction } from "expect";
-import { never } from "../utils/error";
-import { SelectionRange } from "../utils/selection-range.js";
 
 const toMatchVisualSelection: MatcherFunction<[expected: string]> = function (
   actual,
@@ -22,18 +22,6 @@ const toMatchVisualSelection: MatcherFunction<[expected: string]> = function (
 export const expectSelectionRange = {
   toMatchVisualSelection,
 };
-
-declare global {
-  namespace jest {
-    interface AsymmetricMatchers {
-      toMatchVisualSelection(expected: string): void;
-    }
-
-    interface Matchers<R> {
-      toMatchVisualSelection(expected: string): R;
-    }
-  }
-}
 
 /** Internals */
 
@@ -87,4 +75,16 @@ function isMatcherInput(actual: unknown): actual is MatcherInput {
     return false;
   }
   return true;
+}
+
+declare global {
+  namespace jest {
+    interface AsymmetricMatchers {
+      toMatchVisualSelection(expected: string): void;
+    }
+
+    interface Matchers<R> {
+      toMatchVisualSelection(expected: string): R;
+    }
+  }
 }

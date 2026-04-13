@@ -1,7 +1,7 @@
+import { unique } from "@content-editor/utils/array";
+import { keys } from "@content-editor/utils/object";
 import { AnyBlock } from "../editor";
 import { EditableProps, EditorPlugin } from "../editor/plugin";
-import { unique } from "../utils/array";
-import { keys } from "../utils/object";
 
 /**
  * Composes multiple plugins into a single plugin.

@@ -1,4 +1,4 @@
-import { expectSelectionRange } from "./expect-visual-selection.js";
+import { expectSelectionRange } from "@content-editor/utils/test/expect-visual-selection";
 
 expect.extend({
   ...expectSelectionRange,

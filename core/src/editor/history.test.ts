@@ -1,4 +1,4 @@
-import { NonEmpty } from "../utils/non-empty.js";
+import { NonEmpty } from "@content-editor/utils/non-empty";
 import { EditorHistory, type EditorActionCmd } from "./history.js";
 
 type Block = { id: string; text: string };

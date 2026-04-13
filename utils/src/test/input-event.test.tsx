@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import { SelectionRange } from "@content-editor/utils/selection-range";
 import { render } from "@testing-library/react";
-import { SelectionRange } from "../utils/selection-range.js";
 import { inputEvent } from "./input-event.js";
 
 describe("inputEvent", () => {

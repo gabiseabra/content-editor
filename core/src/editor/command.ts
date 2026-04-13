@@ -1,4 +1,4 @@
-import { Slot } from "../utils/slot";
+import { Slot } from "@content-editor/utils/slot";
 import { AnyBlock, ContentEditor, ID } from "./index.js";
 import { EditorTarget } from "./target";
 

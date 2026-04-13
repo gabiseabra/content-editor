@@ -1,7 +1,7 @@
+import { isNonNullable } from "@content-editor/utils/non-nullable";
 import { useEffect } from "react";
 import { AnyBlock } from "../editor";
 import { EditorPlugin } from "../editor/plugin";
-import { isNonNullable } from "../utils/non-nullable";
 
 /**
  * Creates a plugin that attaches a native DOM event listener to all editor blocks.

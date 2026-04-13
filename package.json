@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "workspaces": [
-    "core"
+    "core",
+    "utils"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -41,10 +42,5 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "ts-functional-pipe": "^3.1.2",
-    "ts-pattern": "^5.9.0",
-    "uuid": "^13.0.0"
   }
 }

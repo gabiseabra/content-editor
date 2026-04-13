@@ -1,3 +1,7 @@
+export * from "@content-editor/utils/optics";
+export { SelectionRange } from "@content-editor/utils/selection-range";
+export { Slot } from "@content-editor/utils/slot";
+export { SpliceRange } from "@content-editor/utils/splice-range";
 export { type AnyBlock, type ContentEditor, type ID } from "./editor";
 export { type EditorChangeset } from "./editor/changeset";
 export {
@@ -18,7 +22,3 @@ export {
   type EditorPlugin,
 } from "./editor/plugin";
 export { EditorRef } from "./editor/ref";
-export * from "./utils/optics";
-export { SelectionRange } from "./utils/selection-range";
-export { Slot } from "./utils/slot";
-export { SpliceRange } from "./utils/splice-range";
