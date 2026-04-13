@@ -1,0 +1,179 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnyBlock, ContentEditor } from "../editor";
+import { execCommand } from "../editor/command";
+import { EditorEvent, EditorEventTarget } from "../editor/event";
+import { EditorAction, EditorHistory } from "../editor/history";
+import { EditorRefMap } from "../editor/ref";
+import { EditorTarget } from "../editor/target";
+import { autoBind } from "../utils/object";
+
+/**
+ * Creates shared state & controller for the editor plugins.
+ */
+export function useContentEditor<TBlock extends AnyBlock>({
+  id,
+  initialValue,
+  onReady,
+  onCommit,
+  onPostCommit,
+}: {
+  id: string;
+  initialValue: TBlock[];
+  onReady?: () => void;
+  onCommit?: (blocks: TBlock[]) => void;
+  onPostCommit?: (blocks: TBlock[]) => void;
+}) {
+  const isReadyRef = useRef(false);
+  const bus = useMemo(() => new EditorEventTarget<TBlock>(), []);
+  const history = useMemo(() => new EditorHistory(initialValue), []);
+  const [snapshot, setSnapshot] = useState(() => history.snapshot());
+  const blocksRef = useRef<EditorRefMap<TBlock>>(new Map());
+
+  /** Callback refs */
+
+  const onReadyRef = useRef(onReady);
+  onReadyRef.current = onReady;
+
+  const onCommitRef = useRef(onCommit);
+  onCommitRef.current = onCommit;
+
+  const onPostCommitRef = useRef(onPostCommit);
+  onPostCommitRef.current = onPostCommit;
+
+  /** Editor internals */
+
+  const editor = useMemo<ContentEditor<TBlock>>(
+    () =>
+      autoBind({
+        get latest() {
+          return history.action;
+        },
+
+        get hasUnsavedChanges() {
+          return history.position > snapshot.position;
+        },
+
+        id,
+
+        blocks: snapshot.state,
+        revision: snapshot.position,
+        history,
+        bus,
+
+        ref(id) {
+          function get() {
+            let ref = blocksRef.current.get(id);
+
+            if (!ref) {
+              ref ??= {
+                children: new Map(),
+                element: null,
+              };
+              blocksRef.current.set(id, ref);
+            }
+
+            return ref;
+          }
+
+          return Object.assign((element: HTMLElement | null) => {
+            get().element = element;
+          }, get());
+        },
+
+        exec(cmd, id) {
+          const target = EditorTarget.read(this);
+          const block = id
+            ? snapshot.state.find((b) => b.id === id)
+            : undefined;
+
+          if (id && !block) return;
+
+          return execCommand(this, target, block)(cmd);
+        },
+
+        /** EditorChangeset implementation */
+
+        discard(data) {
+          this.flush(data);
+          while (this.hasUnsavedChanges) history.undo();
+        },
+
+        flush(data?: unknown) {
+          bus.dispatchTypedEvent(
+            "flush",
+            new EditorEvent("flush", this, { data }),
+          );
+        },
+
+        peek(id, data) {
+          this.flush(data);
+
+          return history.getState().find((block) => block.id === id) ?? null;
+        },
+
+        push({ data, ...action }) {
+          this.flush(data);
+
+          const event = new EditorEvent("push", this, {
+            action,
+            data,
+          });
+          bus.dispatchTypedEvent("push", event);
+
+          if (event.defaultPrevented) return;
+
+          const [cmd] = EditorAction.flat([action]);
+          const idBefore = cmd.type === "split" ? cmd.left.id : cmd.block.id;
+          const idAfter = cmd.type === "split" ? cmd.right.id : cmd.block.id;
+
+          history.push({
+            ...action,
+            targetBefore:
+              action.targetBefore ??
+              history.action?.targetAfter ??
+              EditorTarget.start({ id: idBefore }),
+            targetAfter:
+              action.targetAfter ?? EditorTarget.end({ id: idAfter }, this),
+          });
+        },
+
+        commit(data) {
+          const snapshot = history.snapshot();
+
+          const event = new EditorEvent("commit", this, {
+            blocks: snapshot.state,
+            revision: snapshot.position,
+            data: data,
+          });
+          bus.dispatchTypedEvent("commit", event);
+
+          if (event.defaultPrevented) return;
+
+          setSnapshot({
+            state: event.detail.blocks,
+            position: event.detail.revision,
+          });
+          onCommitRef.current?.(event.detail.blocks);
+        },
+      }),
+    [bus, history, snapshot],
+  );
+
+  // notify event listeners
+  useEffect(() => {
+    const event = !isReadyRef.current
+      ? new EditorEvent("ready", editor, {})
+      : new EditorEvent("postcommit", editor, {});
+
+    editor.bus.dispatchTypedEvent(event.eventType, event);
+    isReadyRef.current = true;
+
+    if (event.eventType === "postcommit") {
+      onPostCommitRef.current?.(editor.blocks);
+    } else {
+      onReadyRef.current?.();
+    }
+  }, [editor]);
+
+  return editor;
+}
