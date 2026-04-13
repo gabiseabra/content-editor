@@ -1,0 +1,50 @@
+/***********************************************************************************************************************
+ * [_theme.scss] Color and spacing configurations
+ **********************************************************************************************************************/
+
+:root {
+  --space: 8px;
+  --radius: 8px;
+
+  --color-primary: rgb(92, 69, 237);
+  --color-secondary: rgb(243, 88, 199);
+  --color-shadow: rgba(21, 20, 30, 0.25);
+
+  /* text colors */
+
+  --color-text: #462ca3;
+  --color-heading: #2a16bd;
+  --color-muted: #a198c6;
+  --color-disabled: #a198c6;
+  --color-divider: #c3bdd8;
+  --color-link: var(--color-secondary);
+
+  /* notion colors */
+
+  --color-default: var(--color-text);
+  --bg-default: var(--bg-from);
+
+  --color-gray: #706a85;
+  --bg-gray: #eeedf4;
+
+  --color-orange: #c36e00;
+  --bg-orange: #ffdca4;
+
+  --color-yellow: #cf9009;
+  --bg-yellow: #ffe9ae;
+
+  --color-green: #3d7a03;
+  --bg-green: #c5f1a8;
+
+  --color-blue: #2d60e4;
+  --bg-blue: #c8e6ff;
+
+  --color-purple: #5413dd;
+  --bg-purple: #d9d8ff;
+
+  --color-pink: #dc1a9f;
+  --bg-pink: #ffd4f9;
+
+  --color-red: #ea0000;
+  --bg-red: #ffcccc;
+}

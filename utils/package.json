@@ -71,11 +71,6 @@
       "source": "./src/splice-range.ts",
       "types": "./dist/src/splice-range.d.ts",
       "default": "./dist/src/splice-range.js"
-    },
-    "./text-block": {
-      "source": "./src/text-block.ts",
-      "types": "./dist/src/text-block.d.ts",
-      "default": "./dist/src/text-block.js"
     }
   },
   "scripts": {

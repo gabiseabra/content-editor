@@ -7,17 +7,17 @@ import { EditorTarget } from "./target.js";
  * Commands for history tracking. Each command can be applied forward
  * to reconstruct state from a snapshot.
  */
-export type EditorActionCmd<TBlock extends AnyBlock> =
+export type EditorActionCmd<TBlock> =
   | { type: "update"; block: TBlock }
   | { type: "remove"; block: TBlock }
   | { type: "split"; left: TBlock; right: TBlock };
 
-export interface EditorActionBatch<TBlock extends AnyBlock> {
+export interface EditorActionBatch<TBlock> {
   type: "apply";
   actions: NonEmpty<EditorActionCmd<TBlock>>;
 }
 
-export type EditorAction<TBlock extends AnyBlock> =
+export type EditorAction<TBlock> =
   | EditorActionBatch<TBlock>
   | EditorActionCmd<TBlock>;
 

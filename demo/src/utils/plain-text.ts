@@ -1,14 +1,15 @@
-export type TextBlock = {
+export type PlainTextBlock = {
   id: number;
   text: string;
 };
 
-export const TextBlock = {
-  merge: (left: TextBlock, right: TextBlock) => ({
+export const PlainTextBlock = {
+  merge: (left: PlainTextBlock, right: PlainTextBlock) => ({
     id: left.id,
     text: left.text + right.text,
   }),
-  split: (block: TextBlock, offset: number) => ({
+
+  split: (block: PlainTextBlock, offset: number) => ({
     left: {
       id: block.id,
       text: block.text.slice(0, offset),
@@ -18,8 +19,9 @@ export const TextBlock = {
       text: block.text.slice(offset),
     },
   }),
+
   splice: (
-    block: TextBlock,
+    block: PlainTextBlock,
     offset: number,
     deleteCount: number,
     insert: string,
@@ -28,5 +30,6 @@ export const TextBlock = {
     chars.splice(offset, deleteCount, insert);
     return { id: block.id, text: chars.join("") };
   },
-  update: (block: TextBlock, text: string) => ({ id: block.id, text }),
+
+  update: (block: PlainTextBlock, text: string) => ({ id: block.id, text }),
 };

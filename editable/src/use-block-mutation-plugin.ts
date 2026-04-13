@@ -9,26 +9,16 @@ import {
 } from "@content-editor/core";
 
 export type BlockMutationPluginOptions<TBlock extends AnyBlock> = {
-  split(
-    block: TBlock,
-    offset: number,
-    deleteRange: number,
-  ): {
-    left: TBlock;
-    right: TBlock;
-  } | null;
+  split: Split<TBlock>;
 
-  merge(left: TBlock, right: TBlock): TBlock | null;
+  merge: Merge<TBlock>;
 
   /**
    * Yields follow-up actions that get appended to a remove or split
    * action, letting callers keep dependent blocks in sync with the
    * structural change.
    */
-  cascade?: (
-    action: Extract<EditorActionCmd<TBlock>, { type: "remove" | "split" }>,
-    editor: ContentEditor<TBlock>,
-  ) => EditorActionCmd<TBlock>[];
+  cascade?: Cascade<TBlock>;
 
   previous?: (
     block: TBlock,
@@ -141,3 +131,19 @@ export const useBlockMutationPlugin =
 useBlockMutationPlugin.MergeData = class BlockMutationMergeData {};
 
 useBlockMutationPlugin.SplitData = class BlockMutationSplitData {};
+
+export type Split<TBlock> = (
+  block: TBlock,
+  offset: number,
+  deleteRange: number,
+) => {
+  left: TBlock;
+  right: TBlock;
+} | null;
+
+export type Merge<TBlock> = (left: TBlock, right: TBlock) => TBlock | null;
+
+export type Cascade<TBlock extends AnyBlock> = (
+  action: Extract<EditorActionCmd<TBlock>, { type: "remove" | "split" }>,
+  editor: ContentEditor<TBlock>,
+) => EditorActionCmd<TBlock>[];

@@ -1,7 +1,51 @@
+@use "./mixins/color" as color;
+
+[contenteditable]:empty {
+  content: "\200B";
+}
+
 p {
   margin: 8px 0;
   height: 1em;
+
+  > * {
+    white-space: pre-wrap;
+  }
 }
-[contenteditable]:empty {
-  content: "\200B";
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+@each $name, $_ in color.$colors-codes {
+  .#{"color-" + $name} {
+    @if ($name == "default") {
+      color: currentColor;
+    } @else {
+      color: var(#{"--color-" + $name});
+    }
+  }
+
+  .#{"bgColor-" + $name} {
+    background-color: var(#{"--bg-" + $name});
+  }
+}
+
+// Semantic colour aliases
+@each $key in (muted, disabled, link) {
+  .#{"color-" + $key} {
+    color: var(#{"--color-" + $key});
+  }
 }
