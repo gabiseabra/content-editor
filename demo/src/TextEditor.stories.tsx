@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import source from "./DemoEditor.tsx?raw";
 import { TextEditor } from "./TextEditor";
+import source from "./TextEditor.tsx?raw";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Demo/TextEditor",

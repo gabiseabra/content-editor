@@ -4,61 +4,76 @@
   "type": "module",
   "exports": {
     ".": {
+      "source": "./src/test/expect-visual-selection.ts",
       "types": "./dist/src/test/expect-visual-selection.d.ts"
     },
     "./test/expect-visual-selection": {
+      "source": "./src/test/expect-visual-selection.ts",
       "types": "./dist/src/test/expect-visual-selection.d.ts",
       "default": "./dist/src/test/expect-visual-selection.js"
     },
     "./test/input-event": {
+      "source": "./src/test/input-event.ts",
       "types": "./dist/src/test/input-event.d.ts",
       "default": "./dist/src/test/input-event.js"
     },
     "./optics": {
+      "source": "./src/optics/index.ts",
       "types": "./dist/src/optics/index.d.ts",
       "default": "./dist/src/optics/index.js"
     },
     "./ansi": {
+      "source": "./src/ansi.ts",
       "types": "./dist/src/ansi.d.ts",
       "default": "./dist/src/ansi.js"
     },
     "./array": {
+      "source": "./src/array.ts",
       "types": "./dist/src/array.d.ts",
       "default": "./dist/src/array.js"
     },
     "./error": {
+      "source": "./src/error.ts",
       "types": "./dist/src/error.d.ts",
       "default": "./dist/src/error.js"
     },
     "./fp": {
+      "source": "./src/fp.ts",
       "types": "./dist/src/fp.d.ts",
       "default": "./dist/src/fp.js"
     },
     "./non-empty": {
+      "source": "./src/non-empty.ts",
       "types": "./dist/src/non-empty.d.ts",
       "default": "./dist/src/non-empty.js"
     },
     "./non-nullable": {
+      "source": "./src/non-nullable.ts",
       "types": "./dist/src/non-nullable.d.ts",
       "default": "./dist/src/non-nullable.js"
     },
     "./object": {
+      "source": "./src/object.ts",
       "types": "./dist/src/object.d.ts",
       "default": "./dist/src/object.js"
     },
     "./slot": {
+      "source": "./src/slot.ts",
       "types": "./dist/src/slot.d.ts",
       "default": "./dist/src/slot.js"
     },
     "./selection-range": {
+      "source": "./src/selection-range.ts",
       "types": "./dist/src/selection-range.d.ts",
       "default": "./dist/src/selection-range.js"
     },
     "./splice-range": {
+      "source": "./src/splice-range.ts",
       "types": "./dist/src/splice-range.d.ts",
       "default": "./dist/src/splice-range.js"
     },
     "./text-block": {
+      "source": "./src/text-block.ts",
       "types": "./dist/src/text-block.d.ts",
       "default": "./dist/src/text-block.js"
     }
