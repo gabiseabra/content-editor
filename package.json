@@ -4,6 +4,7 @@
   "description": "",
   "workspaces": [
     "core",
+    "editable",
     "utils"
   ],
   "scripts": {

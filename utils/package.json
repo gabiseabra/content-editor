@@ -18,6 +18,10 @@
       "types": "./dist/src/optics/index.d.ts",
       "default": "./dist/src/optics/index.js"
     },
+    "./ansi": {
+      "types": "./dist/src/ansi.d.ts",
+      "default": "./dist/src/ansi.js"
+    },
     "./array": {
       "types": "./dist/src/array.d.ts",
       "default": "./dist/src/array.js"

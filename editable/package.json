@@ -1,0 +1,15 @@
+{
+  "name": "@content-editor/editable",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./use-logger-plugin": {
+      "types": "./dist/src/use-logger-plugin.d.ts",
+      "default": "./dist/src/use-logger-plugin.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf dist"
+  }
+}

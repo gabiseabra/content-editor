@@ -2,8 +2,11 @@
   "name": "@content-editor/core",
   "version": "0.0.0",
   "type": "module",
-  "main": "./dist/src/index.js",
   "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
     "./hooks/use-content-editor": {
       "types": "./dist/src/hooks/use-content-editor.d.ts",
       "default": "./dist/src/hooks/use-content-editor.js"
