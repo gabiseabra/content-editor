@@ -22,3 +22,4 @@ export {
   type EditorPlugin,
 } from "./editor/plugin";
 export { EditorRef } from "./editor/ref";
+export { EditorTarget } from "./editor/target";

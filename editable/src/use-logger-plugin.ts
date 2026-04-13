@@ -1,5 +1,5 @@
 import { AnyBlock, EditorEvent, EditorPlugin } from "@content-editor/core";
-import { useEventListener } from "@content-editor/core/hooks/use-event-listener";
+import { useEventListener } from "@content-editor/core/use-event-listener";
 import { ANSI } from "@content-editor/utils/ansi";
 
 /**

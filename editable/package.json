@@ -3,6 +3,26 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
+    "./use-auto-commit-plugin": {
+      "types": "./dist/src/use-auto-commit-plugin.d.ts",
+      "default": "./dist/src/use-auto-commit-plugin.js"
+    },
+    "./use-block-mutation-plugin": {
+      "types": "./dist/src/use-block-mutation-plugin.d.ts",
+      "default": "./dist/src/use-block-mutation-plugin.js"
+    },
+    "./use-block-navigation-plugin": {
+      "types": "./dist/src/use-block-navigation-plugin.d.ts",
+      "default": "./dist/src/use-block-navigation-plugin.js"
+    },
+    "./use-history-plugin": {
+      "types": "./dist/src/use-history-plugin.d.ts",
+      "default": "./dist/src/use-history-plugin.js"
+    },
+    "./use-inline-mutation-plugin": {
+      "types": "./dist/src/use-inline-mutation-plugin.d.ts",
+      "default": "./dist/src/use-inline-mutation-plugin.js"
+    },
     "./use-logger-plugin": {
       "types": "./dist/src/use-logger-plugin.d.ts",
       "default": "./dist/src/use-logger-plugin.js"

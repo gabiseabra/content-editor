@@ -57,6 +57,10 @@
     "./splice-range": {
       "types": "./dist/src/splice-range.d.ts",
       "default": "./dist/src/splice-range.js"
+    },
+    "./text-block": {
+      "types": "./dist/src/text-block.d.ts",
+      "default": "./dist/src/text-block.js"
     }
   },
   "scripts": {
