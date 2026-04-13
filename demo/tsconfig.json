@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "outDir": "./dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "types": ["@content-editor/utils"]
+  },
+  "include": [
+    "src/**/*",
+    ".storybook/**/*"
+  ],
+  "references": [
+    { "path": "../core" },
+    { "path": "../editable" },
+    { "path": "../utils" }
+  ]
+}

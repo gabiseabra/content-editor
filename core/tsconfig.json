@@ -20,4 +20,9 @@
     "src/**/*.cy.ts",
     "src/**/*.cy.tsx"
   ],
+  "references": [
+    {
+      "path": "../utils"
+    }
+  ]
 }
