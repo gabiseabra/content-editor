@@ -12,7 +12,7 @@ export type EditorActionCmd<TBlock extends AnyBlock> =
   | { type: "remove"; block: TBlock }
   | { type: "split"; left: TBlock; right: TBlock };
 
-interface EditorActionBatch<TBlock extends AnyBlock> {
+export interface EditorActionBatch<TBlock extends AnyBlock> {
   type: "apply";
   actions: NonEmpty<EditorActionCmd<TBlock>>;
 }
