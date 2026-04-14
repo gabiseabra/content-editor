@@ -7,7 +7,7 @@ export const PlainTextEditor = memo(function PlainTextEditor(options: {
   id: string;
   initialValue: string[];
 }) {
-  const editor = useContentEditor<PlainTextBlock>({
+  const editor = useContentEditor({
     id: options.id,
     initialValue: options.initialValue.map((text, id) => ({ id, text })),
   });

@@ -6,7 +6,7 @@
     "core",
     "editable",
     "utils",
-    "demo"
+    "docs"
   ],
   "scripts": {
     "dev": "npm run storybook -w @content-editor/demo",

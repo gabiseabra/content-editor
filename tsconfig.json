@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./core"
+    },
+    {
+      "path": "./docs"
+    },
+    {
+      "path": "./editable"
+    },
+    {
+      "path": "./utils"
+    },
+  ]
+}

@@ -1,0 +1,39 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import { PlainTextEditor } from "./PlainTextEditor";
+import componentSrc from "./PlainTextEditor?raw";
+import strategySrc from "./utils/plain-text?raw";
+
+<Meta title="Demo/PlainTextEditor" />
+
+# PlainTextBlock
+
+<PlainTextEditor
+  id="sample-strategy"
+  initialValue={[
+    "In this guide we'll build the simplest editor possible.",
+    "What you're reading right now is that editor. Every paragraph is a block, and you can edit it. Press Enter to split a paragraph, or Backspace at the start of a line to merge it with the previous one.",
+    "The editor is generic: it works with your own block types instead of a fixed schema. To make that work, you give it a small set of strategy functions that describe how your blocks mutate.",
+    "Here is the strategy for the block type powering this editor:",
+  ]}
+/>
+
+<Source code={strategySrc} language="ts" />
+
+<PlainTextEditor
+  id="sample-editor"
+  initialValue={[
+    "With the strategy in place, the editor component itself stays tiny.",
+    "useContentEditor gives you a reactive store of blocks keyed by id. You feed it the initial value and it hands back the current blocks along with a ref function for attaching DOM nodes.",
+    "useContentEditablePlugin is where the strategy plugs in. It takes your PlainTextBlock object and returns a function that, given a block, produces the props a contentEditable element needs to stay in sync with the editor state.",
+    "Rendering is just mapping over the blocks and spreading those props onto whatever element you want the user to type into. There's no virtual document, no custom schema, no serializer: you render your own blocks with your own JSX, and the editor takes care of keeping the state coherent.",
+  ]}
+/>
+
+<Source code={componentSrc} language="tsx" />
+
+<PlainTextEditor
+  id="note-on-logging"
+  initialValue={[
+    "Note that we've enabled logging for this editor. You can open your browser console to watch the event stream as you interact.",
+  ]}
+/>
