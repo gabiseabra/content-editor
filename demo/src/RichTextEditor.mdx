@@ -1,0 +1,21 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+import { RichTextEditor } from "./RichTextEditor";
+import source from "./RichTextEditor?raw";
+import { p, span } from "./utils/rich-text";
+
+<Meta title="Demo/RichTextEditor" />
+
+<Source code={source} language="tsx" />
+
+<RichTextEditor
+  initialValue={[
+    p(
+      1,
+      span("Hello, welcome to  "),
+      span("my awesome ", { underline: true }),
+      span("content editor ", { bold: true }),
+      span("demo.", { italic: true }),
+    ),
+    p(2, span("Use keyboard shortcuts to toggle annotations.")),
+  ]}
+/>

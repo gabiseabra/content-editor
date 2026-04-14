@@ -1,4 +1,4 @@
-import { RichTextItem } from "./utils/rich-text";
+import { RichTextItem } from "../utils/rich-text";
 
 export function Span(item: RichTextItem) {
   return <span className={Span.className(item)}>{item.text}</span>;

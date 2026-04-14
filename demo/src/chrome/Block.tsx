@@ -1,6 +1,6 @@
 import { HTMLAttributes, Ref } from "react";
+import { RichTextBlock } from "../utils/rich-text";
 import { Span } from "./Span";
-import { RichTextBlock } from "./utils/rich-text";
 
 export function Block({
   block,

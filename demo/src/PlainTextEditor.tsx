@@ -3,10 +3,13 @@ import { useContentEditablePlugin } from "@content-editor/editable";
 import { memo } from "react";
 import { PlainTextBlock } from "./utils/plain-text";
 
-export const PlainTextEditor = memo(function PlainTextEditor() {
+export const PlainTextEditor = memo(function PlainTextEditor(options: {
+  id: string;
+  initialValue: string[];
+}) {
   const editor = useContentEditor<PlainTextBlock>({
-    id: "demo",
-    initialValue: [{ id: 1, text: "Hello" }],
+    id: options.id,
+    initialValue: options.initialValue.map((text, id) => ({ id, text })),
   });
   const editable = useContentEditablePlugin(PlainTextBlock, {
     logging: true,
