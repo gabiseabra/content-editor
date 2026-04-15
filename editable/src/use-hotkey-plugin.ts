@@ -75,7 +75,7 @@ export const useHotkeyPlugin =
       });
 
       if (nextBlock) {
-        const data = new useHotkeyPlugin.EventData(block, key);
+        const data = new useHotkeyPlugin.EventData(key);
 
         editor.push({
           data,
@@ -105,8 +105,5 @@ function toHotkey(e: KeyboardEvent): Hotkey {
 }
 
 useHotkeyPlugin.EventData = class HotkeyEventData<TBlock extends AnyBlock> {
-  constructor(
-    public block: TBlock,
-    public hotkey: Hotkey,
-  ) {}
+  constructor(public hotkey: Hotkey) {}
 };

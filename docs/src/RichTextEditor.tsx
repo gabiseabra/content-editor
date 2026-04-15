@@ -17,9 +17,9 @@ export const RichTextEditor = memo(function RichTextEditor({
   editor: ContentEditor<RichTextBlock>;
 }) {
   const editable = useEditorPlugins(
-    useHotkeyPlugin("Ctrl+b", toggleAnnotation("bold")),
-    useHotkeyPlugin("Ctrl+i", toggleAnnotation("italic")),
-    useHotkeyPlugin("Ctrl+u", toggleAnnotation("underline")),
+    useHotkeyPlugin(`${ModKey}+b`, toggleAnnotation("bold")),
+    useHotkeyPlugin(`${ModKey}+i`, toggleAnnotation("italic")),
+    useHotkeyPlugin(`${ModKey}+u`, toggleAnnotation("underline")),
     useContentEditablePlugin(RichTextBlock, { logging: true, ...options }),
   )(editor);
 
@@ -32,3 +32,6 @@ export const RichTextEditor = memo(function RichTextEditor({
     />
   ));
 });
+
+const isMac = navigator.userAgent.match(/OS X 10/);
+const ModKey = isMac ? "Meta" : "Ctrl";
