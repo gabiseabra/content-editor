@@ -1,7 +1,15 @@
 import { RichTextItem } from "../utils/rich-text";
 
 export function Span(item: RichTextItem) {
-  return <span className={Span.className(item)}>{item.text}</span>;
+  if (!item.url) {
+    return (
+      <a href={item.url} className={Span.className(item)}>
+        {item.text}
+      </a>
+    );
+  } else {
+    return <span className={Span.className(item)}>{item.text}</span>;
+  }
 }
 
 Span.className = (item: Omit<RichTextItem, "text">) =>

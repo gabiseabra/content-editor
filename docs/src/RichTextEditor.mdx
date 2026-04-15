@@ -1,21 +1,115 @@
 import { Meta, Source } from "@storybook/addon-docs/blocks";
-import { RichTextEditor } from "./RichTextEditor";
-import source from "./RichTextEditor?raw";
-import { p, span } from "./utils/rich-text";
+import { Editor } from "./Editor";
+import componentSource from "./RichTextEditor?raw";
+import { extractExport } from "./utils/code";
+import commandSource from "./utils/rich-text/command?raw";
+import { p, span } from "./utils/rich-text/factory";
+import richTextSource from "./utils/rich-text?raw";
 
 <Meta title="Demo/RichTextEditor" />
 
-<Source code={source} language="tsx" />
+# RichTextBlock
 
-<RichTextEditor
-  initialValue={[
+<Editor
+  id="block-shape"
+  value={[
     p(
       1,
-      span("Hello, welcome to  "),
-      span("my awesome ", { underline: true }),
-      span("content editor ", { bold: true }),
-      span("demo.", { italic: true }),
+      span(
+        [
+          "Rich text is a richer block shape than the flat string we started with.",
+          "Updating it is not trivial: it warrants normalization, and you can modify it in many different ways...",
+          "as a result, operations can get tedious to write,",
+          "and you'll be writing them a lot since ",
+        ].join(" "),
+      ),
+      span(
+        "it is your responsibility to wire them up to plugins and toolbar elements",
+        { underline: true },
+      ),
+      span(
+        [
+          ", so it is recommended to keep everything isolated in a module containing pure functions over the block type,",
+          "so we don't have to reach inside of blocks by hand anywhere in our editor UI code.",
+        ].join(" "),
+      ),
     ),
-    p(2, span("Use keyboard shortcuts to toggle annotations.")),
   ]}
 />
+
+<Source
+  code={[
+    extractExport(richTextSource, "type", "Annotations"),
+    extractExport(richTextSource, "type", "RichTextItem"),
+    extractExport(richTextSource, "type", "RichTextBlock"),
+    `export const RichTextBlock = { /* everything that we saw in PlainTextBlock and more */ };`,
+  ].join("\n\n")}
+  language="ts"
+/>
+
+## EditorCommand
+
+<Editor
+  id="commands"
+  value={[
+    p(
+      1,
+      span(
+        [
+          "A command is a function that receives a target block",
+          "(usually the one that is currently selected),",
+          "a context with the current selection, and the editor instance itself.",
+          "That's everything you should need to apply transformations on the block.",
+          "To make things simple you can return the same block to update it,",
+          "or undefined to do nothing.",
+          "You can also run any side-effect here,",
+          "including manipulating the editor directly,",
+          "and return void to prevent the default behaviour.",
+          "Commands can be dispatched from plugins and toolbar elements via editor.exec(command).",
+        ].join(" "),
+      ),
+    ),
+  ]}
+/>
+
+<Source
+  code={extractExport(commandSource, "function", "toggleAnnotation")}
+  language="ts"
+/>
+
+## RichTextEditor
+
+<Editor
+  id="component"
+  value={[
+    p(
+      1,
+      span(
+        [
+          "In the previous chapter the editor component owned its editor instance.",
+          "Here the view takes an editor prop, and a thin shell creates it separately and hands it down.",
+          "The editor instance only changes when the state it represents actually changes,",
+          "so you don't need to stabilize props with useMemo / useCallback if you do like this.",
+          "This also allows you to use different plugin stacks for different parts of the same editor,",
+          "which will be useful later.",
+        ].join(" "),
+      ),
+    ),
+    p(
+      3,
+      span(
+        [
+          "useEditorPlugins can be used for composing multiple plugins together.",
+          "Plugins register event listeners on the blocks, their handlers are fired in top down order,",
+          "so that plugins earlier in the stack take priority.",
+          "Order only matters between plugins that attach to the same DOM event.",
+          "Plugins that attach to different events don't interact through composition order at all.",
+          "They coordinate through the editor's lifecycle,",
+          "so most stacks don't need to think about how they're arranged.",
+        ].join(" "),
+      ),
+    ),
+  ]}
+/>
+
+<Source code={componentSource} language="tsx" />

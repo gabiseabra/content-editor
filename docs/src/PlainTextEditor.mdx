@@ -9,7 +9,7 @@ import strategySrc from "./utils/plain-text?raw";
 
 <PlainTextEditor
   id="sample-strategy"
-  initialValue={[
+  value={[
     "In this guide we'll build the simplest editor possible.",
     "What you're reading right now is that editor. Every paragraph is a block, and you can edit it. Press Enter to split a paragraph, or Backspace at the start of a line to merge it with the previous one.",
     "The editor is generic: it works with your own block types instead of a fixed schema. To make that work, you give it a small set of strategy functions that describe how your blocks mutate.",
@@ -21,7 +21,7 @@ import strategySrc from "./utils/plain-text?raw";
 
 <PlainTextEditor
   id="sample-editor"
-  initialValue={[
+  value={[
     "With the strategy in place, the editor component itself stays tiny.",
     "useContentEditor gives you a reactive store of blocks keyed by id. You feed it the initial value and it hands back the current blocks along with a ref function for attaching DOM nodes.",
     "useContentEditablePlugin is where the strategy plugs in. It takes your PlainTextBlock object and returns a function that, given a block, produces the props a contentEditable element needs to stay in sync with the editor state.",
@@ -33,7 +33,7 @@ import strategySrc from "./utils/plain-text?raw";
 
 <PlainTextEditor
   id="note-on-logging"
-  initialValue={[
+  value={[
     "Note that we've enabled logging for this editor. You can open your browser console to watch the event stream as you interact.",
   ]}
 />

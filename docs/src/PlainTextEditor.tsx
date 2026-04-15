@@ -3,13 +3,22 @@ import { useContentEditablePlugin } from "@content-editor/editable";
 import { memo } from "react";
 import { PlainTextBlock } from "./utils/plain-text";
 
+/**
+ * This editor is lazy: it does not update the DOM unless you trigger a commit.
+ * This is what ensures smooth typing in contentEditable elements, as updating
+ * on every keystroke would always reset the current selection.
+ * Wrapping the component in `memo` is recommended, since it keeps parent
+ * re-renders from wiping the selection.
+ * @note that you have to pass stable props for this to work ! ! !
+ * @see the next editor for a better pattern.
+ */
 export const PlainTextEditor = memo(function PlainTextEditor(options: {
   id: string;
-  initialValue: string[];
+  value: string[];
 }) {
   const editor = useContentEditor({
     id: options.id,
-    initialValue: options.initialValue.map((text, id) => ({ id, text })),
+    initialValue: options.value.map((text, id) => ({ id, text })),
   });
   const editable = useContentEditablePlugin(PlainTextBlock, {
     logging: true,

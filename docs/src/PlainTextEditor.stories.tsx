@@ -11,7 +11,7 @@ export function Default() {
   return (
     <PlainTextEditor
       id="demo"
-      initialValue={[
+      value={[
         "Hello, welcome to my awesome plain-text content editor demo.",
         "Press Enter to split a paragraph, or Backspace at the start of a line to merge it with the previous one.",
       ]}

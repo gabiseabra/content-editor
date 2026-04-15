@@ -1,4 +1,4 @@
-import { useContentEditor } from "@content-editor/core/use-content-editor";
+import { ContentEditor } from "@content-editor/core";
 import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
 import {
   ContentEditableOptions,
@@ -7,19 +7,15 @@ import {
 import { useHotkeyPlugin } from "@content-editor/editable/use-hotkey-plugin";
 import { memo } from "react";
 import { Block } from "./chrome/Block";
-import { RichTextBlock, toggleAnnotation } from "./utils/rich-text";
+import { RichTextBlock } from "./utils/rich-text";
+import { toggleAnnotation } from "./utils/rich-text/command";
 
-export const RichTextEditor = memo(function RichTextEditor(
-  options: ContentEditableOptions & {
-    initialValue: RichTextBlock[];
-    onChange?: (blocks: RichTextBlock[]) => void;
-  },
-) {
-  const editor = useContentEditor({
-    id: "demo",
-    initialValue: options.initialValue,
-    onCommit: options.onChange,
-  });
+export const RichTextEditor = memo(function RichTextEditor({
+  editor,
+  ...options
+}: ContentEditableOptions & {
+  editor: ContentEditor<RichTextBlock>;
+}) {
   const editable = useEditorPlugins(
     useHotkeyPlugin("Ctrl+b", toggleAnnotation("bold")),
     useHotkeyPlugin("Ctrl+i", toggleAnnotation("italic")),
