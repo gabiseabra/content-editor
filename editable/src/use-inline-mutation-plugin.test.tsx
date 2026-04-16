@@ -5,9 +5,9 @@ import { SelectionRange } from "@content-editor/core";
 import { inputEvent } from "@content-editor/utils/test/input-event";
 import { render } from "@testing-library/react";
 import { act, RefObject } from "react";
-import { RichTextBlock } from "./demo/rich-text";
 import { RichTextEditor } from "./demo/rich-text/Editor";
 import { p, span } from "./demo/rich-text/factory";
+import { RichText } from "./demo/rich-text/model";
 
 describe("useInlineMutationPlugin", () => {
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "llo");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe("hello");
+    expect(RichText.toString(editorRef.current!.blocks[0]!)).toBe("hello");
     expect(el).toMatchVisualSelection("hello|");
   });
 
@@ -69,7 +69,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "XY");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe("XY");
+    expect(RichText.toString(editorRef.current!.blocks[0]!)).toBe("XY");
     expect(el).toMatchVisualSelection("XY|");
   });
 
@@ -96,7 +96,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "World");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe(
+    expect(RichText.toString(editorRef.current!.blocks[0]!)).toBe(
       "Hello\nWorld",
     );
     expect(el).toMatchVisualSelection("Hello\nWorld|");

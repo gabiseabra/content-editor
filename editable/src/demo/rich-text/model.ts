@@ -14,35 +14,30 @@ export type RichTextItem = {
   url?: string;
 } & Annotations;
 
-export type RichTextBlock =
-  | { type: "text"; id: number; text: RichTextItem[] }
-  | { type: "code"; id: number; code: string };
+export type RichText = { type: "text"; id: number; text: RichTextItem[] };
 
-export const RichTextBlock = {
+export const RichText = {
   /** Block mutation strategy */
 
-  merge: (left: RichTextBlock, right: RichTextBlock): RichTextBlock => {
-    if (left.type === "code" && right.type === "code") {
-      return { type: "code", id: left.id, code: left.code + right.code };
-    }
-    return RichTextBlock.normalize({
+  merge: (left: RichText, right: RichText): RichText => {
+    return RichText.normalize({
       type: "text",
       id: left.id,
-      text: [...RichTextBlock.toArray(left), ...RichTextBlock.toArray(right)],
+      text: [...left.text, ...right.text],
     });
   },
 
-  split: (block: RichTextBlock, offset: number) => ({
-    left: RichTextBlock.normalize(RichTextBlock.slice(block, 0, offset)),
-    right: RichTextBlock.normalize(
-      RichTextBlock.slice(
+  split: (block: RichText, offset: number) => ({
+    left: RichText.normalize(RichText.slice(block, 0, offset)),
+    right: RichText.normalize(
+      RichText.slice(
         {
           type: "text",
           id: Math.random(),
-          text: RichTextBlock.toArray(block),
+          text: block.text,
         },
         offset,
-        RichTextBlock.length(block),
+        RichText.length(block),
       ),
     ),
   }),
@@ -50,48 +45,34 @@ export const RichTextBlock = {
   /** Inline mutation strategy */
 
   splice: (
-    block: RichTextBlock,
+    block: RichText,
     offset: number,
     deleteCount: number,
     text: string,
-  ): RichTextBlock => {
-    if (block.type === "code") {
-      const chars = [...block.code];
-      chars.splice(offset, deleteCount, text);
-      return { ...block, code: chars.join("") };
-    }
+  ): RichText => {
+    const total = RichText.length(block);
+    const before = RichText.slice(block, 0, offset);
+    const after = RichText.slice(block, offset + deleteCount, total);
 
-    const total = RichTextBlock.length(block);
-    const before = RichTextBlock.slice(block, 0, offset);
-    const after = RichTextBlock.slice(block, offset + deleteCount, total);
-
-    return RichTextBlock.normalize({
+    return RichText.normalize({
       type: "text",
       id: block.id,
-      text: [
-        ...RichTextBlock.toArray(before),
-        { text },
-        ...RichTextBlock.toArray(after),
-      ],
+      text: [...before.text, { text }, ...after.text],
     });
   },
 
-  update: (block: RichTextBlock, text: string): RichTextBlock =>
-    block.type === "text"
-      ? { ...block, text: [{ text }] }
-      : { ...block, code: text },
+  update: (block: RichText, text: string): RichText => ({
+    ...block,
+    text: [{ text }],
+  }),
 
-  /** Utilities */
+  /** Misc Utilities */
 
   slice: (
-    block: RichTextBlock,
+    block: RichText,
     start: number,
-    end: number = RichTextBlock.length(block),
-  ): RichTextBlock => {
-    if (block.type === "code") {
-      return { ...block, code: block.code.slice(start, end) };
-    }
-
+    end: number = RichText.length(block),
+  ): RichText => {
     const result: RichTextItem[] = [];
 
     let pos = 0;
@@ -109,28 +90,23 @@ export const RichTextBlock = {
     return { ...block, text: result };
   },
 
-  mapRichText: (
-    block: RichTextBlock,
+  map: (
+    block: RichText,
     f: (item: RichTextItem) => RichTextItem,
-    start: number,
-    end: number = RichTextBlock.length(block),
+    start: number = 0,
+    end: number = RichText.length(block),
   ) => {
-    if (block.type === "code") return block;
-    const before = RichTextBlock.toArray(RichTextBlock.slice(block, 0, start));
-    const middle = RichTextBlock.toArray(
-      RichTextBlock.slice(block, start, end),
-    );
-    const after = RichTextBlock.toArray(RichTextBlock.slice(block, end));
+    const before = RichText.slice(block, 0, start).text;
+    const middle = RichText.slice(block, start, end).text;
+    const after = RichText.slice(block, end).text;
 
-    return RichTextBlock.normalize({
+    return RichText.normalize({
       ...block,
       text: [...before, ...middle.map(f), ...after],
     });
   },
 
-  normalize: (block: RichTextBlock): RichTextBlock => {
-    if (block.type === "code") return block;
-
+  normalize: (block: RichText): RichText => {
     const result: RichTextItem[] = [];
 
     for (const item of block.text) {
@@ -146,23 +122,18 @@ export const RichTextBlock = {
     return { ...block, text: result };
   },
 
-  toArray: (block: RichTextBlock): RichTextItem[] =>
-    block.type === "text" ? block.text : [{ text: block.code }],
+  toString: (block: RichText): string =>
+    block.text.reduce((text, i) => text + i.text, ""),
 
-  toString: (block: RichTextBlock): string =>
-    block.type === "code"
-      ? block.code
-      : block.text.reduce((text, i) => text + i.text, ""),
-
-  length: (block: RichTextBlock) => RichTextBlock.toString(block).length,
+  length: (block: RichText) => RichText.toString(block).length,
 
   hasAnnotations: (
-    block: RichTextBlock,
+    block: RichText,
     a: Annotations,
     start: number,
-    end: number = RichTextBlock.length(block),
+    end: number = RichText.length(block),
   ) => {
-    return RichTextBlock.toArray(RichTextBlock.slice(block, start, end)).every(
+    return RichText.slice(block, start, end).text.every(
       (item) =>
         (typeof a.bold !== "undefined" && a.bold === item.bold) ||
         (typeof a.italic !== "undefined" && a.italic === item.italic) ||
@@ -176,14 +147,14 @@ export const RichTextBlock = {
   },
 
   toggleAnnotations: (
-    block: RichTextBlock,
+    block: RichText,
     annotations: Annotations,
     start: number,
-    end: number = RichTextBlock.length(block),
+    end: number = RichText.length(block),
   ) => {
     if (block.type !== "text") return block;
 
-    const hasAnnotations = RichTextBlock.hasAnnotations(
+    const hasAnnotations = RichText.hasAnnotations(
       block,
       annotations,
       start,
@@ -197,7 +168,7 @@ export const RichTextBlock = {
       { ...annotations },
     );
 
-    return RichTextBlock.mapRichText(
+    return RichText.map(
       block,
       (item) => ({
         ...item,

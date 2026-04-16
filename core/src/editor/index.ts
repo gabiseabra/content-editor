@@ -15,6 +15,7 @@ export interface ContentEditor<
   TBlock extends AnyBlock,
 > extends EditorChangeset<TBlock> {
   readonly id: string;
+  readonly parent?: ContentEditor<AnyBlock>;
 
   /**
    * Last committed state. Updated after `commit()`.

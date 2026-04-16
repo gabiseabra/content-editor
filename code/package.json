@@ -1,0 +1,36 @@
+{
+  "name": "@content-editor/code",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./use-code-indent-plugin": {
+      "source": "./src/use-code-indent-plugin.ts",
+      "types": "./dist/src/use-code-indent-plugin.d.ts",
+      "default": "./dist/src/use-code-indent-plugin.js"
+    },
+    "./demo/model": {
+      "source": "./src/demo/model.ts",
+      "types": "./dist/src/demo/model.d.ts",
+      "default": "./dist/src/demo/model.js"
+    },
+    "./demo/Block": {
+      "source": "./src/demo/Block.tsx",
+      "types": "./dist/src/demo/Block.d.ts",
+      "default": "./dist/src/demo/Block.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf dist"
+  },
+  "dependencies": {
+    "@content-editor/core": "*",
+    "@content-editor/editable": "*",
+    "@content-editor/utils": "*"
+  }
+}

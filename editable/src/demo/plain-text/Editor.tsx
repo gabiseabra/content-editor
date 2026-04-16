@@ -2,9 +2,9 @@ import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
 import { useContentEditablePlugin } from "@content-editor/editable";
 import { memo } from "react";
-import { PlainTextBlock } from ".";
+import { PlainText } from "./model";
 
-export type PlainTextEditor = ContentEditor<PlainTextBlock>;
+export type PlainTextEditor = ContentEditor<PlainText>;
 
 /**
  * This editor is lazy: it does not update the DOM unless you trigger a commit.
@@ -23,16 +23,17 @@ export const PlainTextEditor = memo(function PlainTextEditor(options: {
     id: options.id,
     initialValue: options.value.map((text, id) => ({ id, text })),
   });
-  const editable = useContentEditablePlugin(PlainTextBlock, {
+  const editable = useContentEditablePlugin(PlainText, {
     logging: true,
   })(editor);
 
   return editor.blocks.map((block) => (
     <p
       key={block.id}
-      ref={editor.ref(block.id)}
       contentEditable
       suppressContentEditableWarning
+      className="sb-unstyled"
+      ref={editor.ref(block.id)}
       {...editable(block)}
     >
       {block.text}

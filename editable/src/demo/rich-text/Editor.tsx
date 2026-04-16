@@ -2,10 +2,10 @@ import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
 import { ContentEditableOptions } from "@content-editor/editable";
 import { Ref, useImperativeHandle } from "react";
-import { RichTextBlock } from ".";
-import { RichTextEditable } from "./Editable";
+import { RichTextBlock } from "./Block";
+import { RichText } from "./model";
 
-export type RichTextEditor = ContentEditor<RichTextBlock>;
+export type RichTextEditor = ContentEditor<RichText>;
 
 export function RichTextEditor({
   ref,
@@ -16,8 +16,8 @@ export function RichTextEditor({
 }: ContentEditableOptions & {
   ref?: Ref<RichTextEditor>;
   id: string;
-  value: RichTextBlock[];
-  onChange?: (blocks: RichTextBlock[]) => void;
+  value: RichText[];
+  onChange?: (blocks: RichText[]) => void;
 }) {
   const editor = useContentEditor({
     id,
@@ -27,5 +27,5 @@ export function RichTextEditor({
 
   useImperativeHandle(ref, () => editor, [editor]);
 
-  return <RichTextEditable editor={editor} {...options} />;
+  return <RichTextBlock editor={editor} {...options} />;
 }
