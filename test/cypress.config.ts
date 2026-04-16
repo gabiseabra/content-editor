@@ -1,8 +1,13 @@
 import { defineConfig } from "cypress";
-import viteConfig from "./test/vite.config.js";
+import viteConfig from "./vite.config.js";
 
 export default defineConfig({
+  fixturesFolder: "test/cypress/fixtures",
+  screenshotsFolder: "test/cypress/screenshots",
+
   component: {
+    supportFile: "test/cypress/support/component.ts",
+    indexHtmlFile: "test/cypress/support/component-index.html",
     devServer: {
       framework: "react",
       bundler: "vite",

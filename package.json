@@ -14,9 +14,9 @@
     "clean": "npm run clean --workspaces",
     "lint": "eslint",
     "tsc": "tsc -b",
-    "cy:open": "cypress open --component --browser electron",
-    "test": "NODE_OPTIONS=--experimental-vm-modules node --loader ts-node/esm ./node_modules/jest/bin/jest.js -c jest.config.ts --",
-    "test:cy": "cypress run --component"
+    "cy:open": "cypress open --component --browser electron --config-file test/cypress.config.ts",
+    "test": "NODE_OPTIONS=--experimental-vm-modules node --loader ts-node/esm ./node_modules/jest/bin/jest.js -c test/jest.config.ts --",
+    "test:cy": "cypress run --component --config-file test/cypress.config.ts"
   },
   "engines": {
     "node": ">=22",
