@@ -16,6 +16,8 @@ import {
 } from "./use-inline-mutation-plugin";
 import { createLogger, useLoggerPlugin } from "./use-logger-plugin";
 
+export type { Cascade, Merge, Splice, Split, Update };
+
 export type ContentEditableOptions = {
   inline?: boolean;
   logging?: boolean | "verbose";

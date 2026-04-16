@@ -1,17 +1,17 @@
+import componentSource from "@content-editor/editable/demo/rich-text/Block?raw";
 import commandSource from "@content-editor/editable/demo/rich-text/command?raw";
-import componentSource from "@content-editor/editable/demo/rich-text/Editable?raw";
-import { RichTextEditor } from "@content-editor/editable/demo/rich-text/Editor";
-import { p, span } from "@content-editor/editable/demo/rich-text/factory";
-import richTextSource from "@content-editor/editable/demo/rich-text?raw";
+import richTextSource from "@content-editor/editable/demo/rich-text/model?raw";
 import { Meta, Source } from "@storybook/addon-docs/blocks";
+import { DemoEditor } from "./chrome/DemoEditor";
+import { code, p, span } from "./demo/factory";
 import { extractExport } from "./utils/code";
 
 <Meta title="Demo/RichTextEditor" />
 
-# RichTextBlock
+# RichTextEditor
 
-<RichTextEditor
-  id="block-shape"
+<DemoEditor
+  id="demo"
   logging
   value={[
     p(
@@ -35,26 +35,17 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
-  ]}
-/>
-
-<Source
-  code={[
-    extractExport(richTextSource, "type", "Annotations"),
-    extractExport(richTextSource, "type", "RichTextItem"),
-    extractExport(richTextSource, "type", "RichTextBlock"),
-    `export const RichTextBlock = { /* everything that we saw in PlainTextBlock and more */ };`,
-  ].join("\n\n")}
-  language="ts"
-/>
-
-## EditorCommand
-
-<RichTextEditor
-  id="commands"
-  value={[
+    code(
+      2,
+      [
+        extractExport(richTextSource, "type", "Annotations"),
+        extractExport(richTextSource, "type", "RichTextItem"),
+        extractExport(richTextSource, "type", "RichText"),
+        `export const RichText = { /* everything that we saw in PlainTextBlock and more */ };`,
+      ].join("\n\n"),
+    ),
     p(
-      1,
+      3,
       span(
         [
           "A command is a function that receives a target block",
@@ -70,21 +61,9 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
-  ]}
-/>
-
-<Source
-  code={extractExport(commandSource, "function", "toggleAnnotation")}
-  language="ts"
-/>
-
-## RichTextEditor
-
-<RichTextEditor
-  id="component"
-  value={[
+    code(4, extractExport(commandSource, "function", "toggleAnnotation")),
     p(
-      1,
+      5,
       span(
         [
           "In the previous chapter the editor component owned its editor instance.",
@@ -97,7 +76,7 @@ import { extractExport } from "./utils/code";
       ),
     ),
     p(
-      3,
+      6,
       span(
         [
           "useEditorPlugins can be used for composing multiple plugins together.",
@@ -110,7 +89,6 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
+    code(7, componentSource),
   ]}
 />
-
-<Source code={componentSource} language="tsx" />

@@ -1,9 +1,9 @@
 import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { RichTextEditable } from "@content-editor/editable/demo/rich-text/Editable";
+import { RichTextBlock } from "@content-editor/editable/demo/rich-text/Block";
 import { p, span } from "@content-editor/editable/demo/rich-text/factory";
 import type { Meta } from "@storybook/react";
 
-const meta: Meta<typeof RichTextEditable> = {
+const meta: Meta<typeof RichTextBlock> = {
   title: "Demo/RichTextEditor",
 };
 
@@ -23,5 +23,5 @@ export function Default() {
       p(2, span("Use keyboard shortcuts to toggle annotations.")),
     ],
   });
-  return <RichTextEditable editor={editor} />;
+  return <RichTextBlock editor={editor} />;
 }

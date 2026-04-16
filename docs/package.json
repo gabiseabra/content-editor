@@ -32,9 +32,11 @@
     "clean": "tsc -b --clean"
   },
   "dependencies": {
+    "@content-editor/code": "*",
     "@content-editor/core": "*",
     "@content-editor/editable": "*",
     "@content-editor/utils": "*",
+    "prismjs": "^1.30.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
@@ -42,7 +44,9 @@
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/react": "^10.3.0",
     "@storybook/react-vite": "^10.3.0",
+    "@types/prismjs": "^1.26.6",
     "prettier": "^3.8.2",
+    "prism-themes": "^1.9.0",
     "sass-embedded": "^1.99.0",
     "storybook": "^10.3.0"
   }

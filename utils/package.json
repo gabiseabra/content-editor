@@ -47,6 +47,11 @@
       "types": "./dist/src/fp.d.ts",
       "default": "./dist/src/fp.js"
     },
+    "./generator": {
+      "source": "./src/generator.ts",
+      "types": "./dist/src/generator.d.ts",
+      "default": "./dist/src/generator.js"
+    },
     "./non-empty": {
       "source": "./src/non-empty.ts",
       "types": "./dist/src/non-empty.d.ts",

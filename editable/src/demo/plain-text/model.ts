@@ -1,16 +1,16 @@
-export type PlainTextBlock = {
+export type PlainText = {
   id: number;
   text: string;
 };
 
-export const PlainTextBlock = {
+export const PlainText = {
   /** Block mutation strategy */
 
   /**
    * Join two blocks.
    * @required
    */
-  merge: (left: PlainTextBlock, right: PlainTextBlock) => ({
+  merge: (left: PlainText, right: PlainText) => ({
     id: left.id,
     text: left.text + right.text,
   }),
@@ -19,7 +19,7 @@ export const PlainTextBlock = {
    * Split a block into two blocks at caret offset.
    * @required
    */
-  split: (block: PlainTextBlock, offset: number) => ({
+  split: (block: PlainText, offset: number) => ({
     left: {
       id: block.id,
       text: block.text.slice(0, offset),
@@ -41,7 +41,7 @@ export const PlainTextBlock = {
    * @required
    */
   splice: (
-    block: PlainTextBlock,
+    block: PlainText,
     offset: number,
     deleteCount: number,
     insert: string,
@@ -59,5 +59,5 @@ export const PlainTextBlock = {
    * will behave like a controlled input.
    * @optional
    */
-  update: (block: PlainTextBlock, text: string) => ({ id: block.id, text }),
+  update: (block: PlainText, text: string) => ({ id: block.id, text }),
 };

@@ -4,21 +4,21 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-    "noEmit": true,
-    "outDir": "./dist",
-    "tsBuildInfoFile": "dist/.tsbuildinfo",
     "types": [
-      "@content-editor/utils"
-    ]
+      "jest",
+      "@testing-library/jest-dom",
+    ],
+    "outDir": "./dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": [
     "src/**/*",
-    ".storybook/**/*"
+  ],
+  "exclude": [
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx"
   ],
   "references": [
-    {
-      "path": "../code"
-    },
     {
       "path": "../core"
     },

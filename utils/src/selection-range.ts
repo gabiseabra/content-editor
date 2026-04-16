@@ -128,15 +128,6 @@ function moveVertically(
 ): SelectionRange | null {
   const range = window.getSelection()?.getRangeAt(0);
   if (!range || !range.collapsed) return null;
-  if (!currentElement.contains(range.startContainer)) {
-    console.warn("Caret startContainer is outside current element.", {
-      currentElement,
-      targetElement,
-      direction,
-      range,
-    });
-    return null;
-  }
 
   const caretRect = getCaretRect(range);
   if (!caretRect)
@@ -207,12 +198,25 @@ function moveVerticallyByOffset(
   range: Range,
 ): SelectionRange | null {
   // Derive the caret text offset from the selection range.
-  const text = currentElement.textContent ?? "";
-  const caretOffset = getTextUpToNode(
-    currentElement,
-    range.startContainer,
-    range.startOffset,
-  ).length;
+  const { text, caretOffset } = (() => {
+    if (
+      currentElement instanceof HTMLInputElement ||
+      currentElement instanceof HTMLTextAreaElement
+    )
+      return {
+        text: currentElement.value,
+        caretOffset:
+          SelectionRange.read(currentElement)?.start ?? range.startOffset,
+      };
+    return {
+      text: currentElement.textContent ?? "",
+      caretOffset: getTextUpToNode(
+        currentElement,
+        range.startContainer,
+        range.startOffset,
+      ).length,
+    };
+  })();
 
   // Compute the caret line index by counting `\n` before that offset.
   const lines = text.replace(/\n$/, "").split("\n");

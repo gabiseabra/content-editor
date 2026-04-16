@@ -43,20 +43,20 @@
       "types": "./dist/src/use-logger-plugin.d.ts",
       "default": "./dist/src/use-logger-plugin.js"
     },
-    "./demo/plain-text": {
-      "source": "./src/demo/plain-text/index.ts",
-      "types": "./dist/src/demo/plain-text/index.d.ts",
-      "default": "./dist/src/demo/plain-text/index.js"
+    "./demo/plain-text/model": {
+      "source": "./src/demo/plain-text/model.ts",
+      "types": "./dist/src/demo/plain-text/model.d.ts",
+      "default": "./dist/src/demo/plain-text/model.js"
     },
     "./demo/plain-text/Editor": {
       "source": "./src/demo/plain-text/Editor.tsx",
       "types": "./dist/src/demo/plain-text/Editor.d.ts",
       "default": "./dist/src/demo/plain-text/Editor.js"
     },
-    "./demo/rich-text": {
-      "source": "./src/demo/rich-text/index.ts",
-      "types": "./dist/src/demo/rich-text/index.d.ts",
-      "default": "./dist/src/demo/rich-text/index.js"
+    "./demo/rich-text/model": {
+      "source": "./src/demo/rich-text/model.ts",
+      "types": "./dist/src/demo/rich-text/model.d.ts",
+      "default": "./dist/src/demo/rich-text/model.js"
     },
     "./demo/rich-text/command": {
       "source": "./src/demo/rich-text/command.ts",
@@ -73,10 +73,10 @@
       "types": "./dist/src/demo/rich-text/Editor.d.ts",
       "default": "./dist/src/demo/rich-text/Editor.js"
     },
-    "./demo/rich-text/Editable": {
-      "source": "./src/demo/rich-text/Editable.tsx",
-      "types": "./dist/src/demo/rich-text/Editable.d.ts",
-      "default": "./dist/src/demo/rich-text/Editable.js"
+    "./demo/rich-text/Block": {
+      "source": "./src/demo/rich-text/Block.tsx",
+      "types": "./dist/src/demo/rich-text/Block.d.ts",
+      "default": "./dist/src/demo/rich-text/Block.js"
     }
   },
   "scripts": {
@@ -84,6 +84,7 @@
     "clean": "tsc -b --clean && rm -rf dist"
   },
   "dependencies": {
+    "@content-editor/utils": "*",
     "@content-editor/core": "*"
   }
 }

@@ -4,14 +4,11 @@
   content: "\200B";
 }
 
-p,
-p > span {
-  // Storybook mdx overrides these styles
-  // need !important to override the overrride :/
-  font-size: 1em !important;
-  line-height: 1.25em !important;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-  margin: 10px 0 !important;
+p {
+  font-size: 1em;
+  line-height: 1.25em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 10px 0;
 
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -53,5 +50,48 @@ p > span {
 @each $key in (muted, disabled, link) {
   .#{"color-" + $key} {
     color: var(#{"--color-" + $key});
+  }
+}
+
+// @import "prism-themes/themes/prism-material-light.css";
+// @import "prism-themes/themes/prism-dracula.css";
+@import "prism-themes/themes/prism-vs.css";
+// @import "prismjs/themes/prism.css";
+
+pre.prism {
+  margin: calc(var(--space) * 2) 0;
+  padding: calc(var(--space) * 3);
+  border-radius: var(--radius);
+  font-family:
+    "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  user-select: none;
+
+  code,
+  textarea {
+    border-radius: var(--radius);
+    overflow-x: auto;
+    white-space: pre;
+    font-size: 0.85rem;
+    line-height: 1.2rem;
+    tab-size: 2;
+    min-height: 1.2rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code {
+    display: block;
+    scrollbar-color: transparent;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  textarea {
+    padding: calc(var(--space) * 3) !important;
+    -webkit-text-fill-color: transparent;
+    &:empty {
+      -webkit-text-fill-color: initial !important;
+    }
   }
 }

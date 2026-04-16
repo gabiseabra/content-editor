@@ -1,11 +1,7 @@
-import { RichTextBlock, RichTextItem } from ".";
+import { RichText, RichTextItem } from "./model";
 
-export function p(id: number, ...text: RichTextItem[]): RichTextBlock {
+export function p(id: number, ...text: RichTextItem[]): RichText {
   return { type: "text", id, text };
-}
-
-export function code(id: number, code: string): RichTextBlock {
-  return { type: "code", id, code };
 }
 
 export function span(text: string, annotations?: Omit<RichTextItem, "text">) {
