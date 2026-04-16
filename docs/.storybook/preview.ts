@@ -27,6 +27,16 @@ const preview: Preview = {
   parameters: {
     actions: { disable: true },
     docs: { codePanel: true },
+    options: {
+      storySort: {
+        order: [
+          "Docs",
+          "Demo",
+          ["PlainTextEditor", "RichTextEditor", "CodeEditor", "*"],
+          "*",
+        ],
+      },
+    },
   },
   decorators: [
     (Story, context) => {
