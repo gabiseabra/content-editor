@@ -12,7 +12,7 @@
     "dev": "npm run storybook -w docs",
     "build": "npm run build --workspaces",
     "clean": "npm run clean --workspaces",
-    "lint": "eslint \"{api,web,common}/src/**/*.{ts,tsx}\"",
+    "lint": "eslint",
     "tsc": "tsc -b",
     "cy:open": "cypress open --component --browser electron",
     "test": "NODE_OPTIONS=--experimental-vm-modules node --loader ts-node/esm ./node_modules/jest/bin/jest.js -c jest.config.ts --",

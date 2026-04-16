@@ -62,6 +62,7 @@ function isMatcherInput(actual: unknown): actual is MatcherInput {
     const {
       text,
       selection: { start, end },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } = actual as any;
     if (
       !(
@@ -71,7 +72,7 @@ function isMatcherInput(actual: unknown): actual is MatcherInput {
       )
     )
       throw null;
-  } catch (error) {
+  } catch {
     return false;
   }
   return true;

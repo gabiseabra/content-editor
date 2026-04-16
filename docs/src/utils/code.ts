@@ -40,12 +40,7 @@ export function extractExport(
       if (ch === "{") seenBrace = true;
     } else if (ch === "}" || ch === ")" || ch === "]") {
       depth--;
-      if (
-        !terminatesOnSemicolon &&
-        depth === 0 &&
-        ch === "}" &&
-        seenBrace
-      ) {
+      if (!terminatesOnSemicolon && depth === 0 && ch === "}" && seenBrace) {
         return source.slice(start, i + 1);
       }
     } else if (terminatesOnSemicolon && ch === ";" && depth === 0) {

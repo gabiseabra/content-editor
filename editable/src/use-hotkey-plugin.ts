@@ -46,10 +46,6 @@ type Key =
 
 export type Hotkey = `${Mod}+${Key}` | `${Mod}+${Mod}+${Key}` | Key;
 
-type MaybeReadonly<T> = T extends readonly unknown[]
-  ? T | readonly T[number][]
-  : T | Readonly<T>;
-
 export const useHotkeyPlugin =
   <TBlock extends AnyBlock>(
     hotkey: Hotkey | Hotkey[],
@@ -104,6 +100,6 @@ function toHotkey(e: KeyboardEvent): Hotkey {
   return (mods.length ? `${mods.join("+")}+${key}` : key) as Hotkey;
 }
 
-useHotkeyPlugin.EventData = class HotkeyEventData<TBlock extends AnyBlock> {
+useHotkeyPlugin.EventData = class HotkeyEventData {
   constructor(public hotkey: Hotkey) {}
 };

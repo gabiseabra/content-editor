@@ -43,7 +43,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "llo");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current?.blocks[0]!)).toBe("hello");
+    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe("hello");
     expect(el).toMatchVisualSelection("hello|");
   });
 
@@ -69,7 +69,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "XY");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current?.blocks[0]!)).toBe("XY");
+    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe("XY");
     expect(el).toMatchVisualSelection("XY|");
   });
 
@@ -96,7 +96,7 @@ describe("useInlineMutationPlugin", () => {
     inputEvent.insert(el, "World");
     act(() => jest.advanceTimersByTime(1000));
 
-    expect(RichTextBlock.toString(editorRef.current?.blocks[0]!)).toBe(
+    expect(RichTextBlock.toString(editorRef.current!.blocks[0]!)).toBe(
       "Hello\nWorld",
     );
     expect(el).toMatchVisualSelection("Hello\nWorld|");
