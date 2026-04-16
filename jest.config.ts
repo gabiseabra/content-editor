@@ -1,5 +1,6 @@
 /** @jest-config-loader ts-node */
 /** @jest-config-loader-options {"transpileOnly": true} */
+import * as fs from "fs";
 import type { Config } from "jest";
 
 export default {
@@ -20,8 +21,7 @@ export default {
           "ts-jest",
           {
             useESM: true,
-            tsconfig: `${process.cwd()}/${workspace}/tsconfig.json`,
-            // tsconfig: `${process.cwd()}/${workspace}/${workspace === "web" ? `tsconfig.build` : "tsconfig"}.json`,
+            tsconfig: resolveTsconfig(workspace),
             diagnostics: false,
           },
         ],
@@ -40,3 +40,10 @@ export default {
     }),
   ),
 };
+
+function resolveTsconfig(workspace: string) {
+  const root = `${process.cwd()}/${workspace}`;
+  return fs.existsSync(`${root}/tsconfig.build.json`)
+    ? `${root}/tsconfig.build.json`
+    : `${root}/tsconfig.json`;
+}
