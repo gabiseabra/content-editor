@@ -1,4 +1,4 @@
-name: Deploy web to GitHub Pages
+name: Deploy Storybook to GitHub Pages
 
 on:
   push:
@@ -28,28 +28,14 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build -w common
+      - run: npm run build-storybook -w docs
 
-      - name: Build web
-        env:
-          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_SITE_TITLE: ${{ vars.VITE_SITE_TITLE }}
-        run: npm run build -w web
-
-      - name: Verify dist exists
-        run: |
-          ls -la web/dist/client
-          test -f web/dist/client/index.html
-
-      - run: cp web/dist/client/index.html web/dist/client/404.html
-      - run: echo "${{ vars.PAGES_DOMAIN }}" > web/dist/client/CNAME
-      - run: touch web/dist/client/.nojekyll
+      - run: touch docs/storybook-static/.nojekyll
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web/dist/client
+          path: docs/storybook-static
 
   deploy:
     runs-on: ubuntu-latest
