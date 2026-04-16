@@ -1,5 +1,5 @@
+import { PlainTextEditor } from "@content-editor/editable/demo/plain-text/Editor";
 import type { Meta } from "@storybook/react";
-import { PlainTextEditor } from "./PlainTextEditor";
 
 const meta: Meta<typeof PlainTextEditor> = {
   title: "Demo/PlainTextEditor",

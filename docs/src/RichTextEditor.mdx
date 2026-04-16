@@ -1,17 +1,18 @@
+import commandSource from "@content-editor/editable/demo/rich-text/command?raw";
+import componentSource from "@content-editor/editable/demo/rich-text/Editable?raw";
+import { RichTextEditor } from "@content-editor/editable/demo/rich-text/Editor";
+import { p, span } from "@content-editor/editable/demo/rich-text/factory";
+import richTextSource from "@content-editor/editable/demo/rich-text?raw";
 import { Meta, Source } from "@storybook/addon-docs/blocks";
-import { Editor } from "./Editor";
-import componentSource from "./RichTextEditor?raw";
 import { extractExport } from "./utils/code";
-import commandSource from "./utils/rich-text/command?raw";
-import { p, span } from "./utils/rich-text/factory";
-import richTextSource from "./utils/rich-text?raw";
 
 <Meta title="Demo/RichTextEditor" />
 
 # RichTextBlock
 
-<Editor
+<RichTextEditor
   id="block-shape"
+  logging
   value={[
     p(
       1,
@@ -49,7 +50,7 @@ import richTextSource from "./utils/rich-text?raw";
 
 ## EditorCommand
 
-<Editor
+<RichTextEditor
   id="commands"
   value={[
     p(
@@ -79,7 +80,7 @@ import richTextSource from "./utils/rich-text?raw";
 
 ## RichTextEditor
 
-<Editor
+<RichTextEditor
   id="component"
   value={[
     p(

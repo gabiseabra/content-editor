@@ -1,8 +1,30 @@
 {
-  "name": "@content-editor/demo",
+  "name": "@content-editor/docs",
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./Editor": {
+      "source": "./src/Editor.tsx",
+      "types": "./dist/src/Editor.d.ts",
+      "default": "./dist/src/Editor.js"
+    },
+    "./utils/rich-text": {
+      "source": "./src/utils/rich-text.ts",
+      "types": "./dist/src/utils/rich-text.d.ts",
+      "default": "./dist/src/utils/rich-text.js"
+    },
+    "./utils/rich-text/command": {
+      "source": "./src/utils/rich-text/command.ts",
+      "types": "./dist/src/utils/rich-text/command.d.ts",
+      "default": "./dist/src/utils/rich-text/command.js"
+    },
+    "./utils/rich-text/factory": {
+      "source": "./src/utils/rich-text/factory.ts",
+      "types": "./dist/src/utils/rich-text/factory.d.ts",
+      "default": "./dist/src/utils/rich-text/factory.js"
+    }
+  },
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

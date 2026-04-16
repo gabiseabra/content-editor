@@ -1,5 +1,5 @@
 import { EditorCommand, SelectionRange } from "@content-editor/core";
-import { RichTextBlock } from "../rich-text";
+import { RichTextBlock } from ".";
 
 export function toggleAnnotation(
   annotation: "bold" | "italic" | "underline" | "strikethrough",

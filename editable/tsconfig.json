@@ -7,6 +7,7 @@
     "types": [
       "jest",
       "@testing-library/jest-dom",
+      "@content-editor/utils"
     ],
     "outDir": "./dist",
     "tsBuildInfoFile": "dist/.tsbuildinfo"
@@ -16,7 +17,7 @@
   ],
   "exclude": [
     "src/**/*.cy.ts",
-    "src/**/*.cy.tsx"
+    "src/**/*.cy.tsx",
   ],
   "references": [
     {

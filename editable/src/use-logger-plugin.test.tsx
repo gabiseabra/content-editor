@@ -1,0 +1,123 @@
+/**
+ * @jest-environment jsdom
+ */
+import { ContentEditor, EditorEvent } from "@content-editor/core";
+import { useContentEditor } from "@content-editor/core/use-content-editor";
+import { render } from "@testing-library/react";
+import { act, Ref, RefObject, useImperativeHandle } from "react";
+import { useLoggerPlugin } from "./use-logger-plugin.js";
+
+type TestBlock = { id: string; content: string };
+
+function TestEditor({
+  ref,
+  value: initialValue,
+  log,
+}: {
+  ref?: Ref<ContentEditor<TestBlock>>;
+  value: TestBlock[];
+  log: (event: EditorEvent<TestBlock>) => void;
+}) {
+  const editor = useContentEditor({
+    id: "test",
+    initialValue,
+  });
+
+  const editable = useLoggerPlugin(log)(editor);
+
+  useImperativeHandle(ref, () => editor, [editor]);
+
+  return (
+    <>
+      {editor.blocks.map((block) => (
+        <div
+          key={block.id}
+          contentEditable={"plaintext-only"}
+          suppressContentEditableWarning={true}
+          tabIndex={0}
+          ref={editor.ref(block.id)}
+          {...editable(block)}
+        >
+          {block.content}
+        </div>
+      ))}
+    </>
+  );
+}
+
+describe("useLoggerPlugin", () => {
+  it("logs ready event on initial render", () => {
+    const log = jest.fn();
+    const blocks = [{ id: "a", content: "Hello" }];
+
+    render(<TestEditor value={blocks} log={log} />);
+
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "ready" }),
+    );
+  });
+
+  it("logs edit and commit events when editor commits changes", () => {
+    const log = jest.fn();
+    const blocks = [{ id: "a", content: "Hello" }];
+    const editorRef: RefObject<ContentEditor<TestBlock> | null> = {
+      current: null,
+    };
+
+    render(<TestEditor ref={editorRef} value={blocks} log={log} />);
+
+    act(() => {
+      editorRef.current?.push({
+        type: "update",
+        block: { id: "a", content: "World" },
+      });
+      editorRef.current?.commit();
+    });
+
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "flush" }),
+    );
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "push" }),
+    );
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "commit" }),
+    );
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "postcommit" }),
+    );
+  });
+
+  it("logs postcommit event when reaching start of history", () => {
+    const log = jest.fn();
+    const blocks = [{ id: "a", content: "Hello" }] satisfies TestBlock[];
+    const editorRef: RefObject<ContentEditor<TestBlock> | null> = {
+      current: null,
+    };
+
+    render(<TestEditor ref={editorRef} value={blocks} log={log} />);
+    log.mockClear();
+
+    act(() => {
+      editorRef.current?.push({
+        type: "update",
+        block: { id: "a", content: "World" },
+      });
+      editorRef.current?.commit();
+    });
+
+    log.mockClear();
+
+    act(() => {
+      editorRef.current?.history.undo();
+      editorRef.current?.commit();
+    });
+
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "commit" }),
+    );
+    expect(log).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: "postcommit" }),
+    );
+  });
+});

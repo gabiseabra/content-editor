@@ -7,7 +7,9 @@ expect.extend({
 const failOnCall =
   (method: string) =>
   (...args: unknown[]) => {
-    throw new Error(`console.${method} called: ${args[0]}`);
+    throw new Error(
+      `console.${method} called: ${args.map((arg) => JSON.stringify(arg, null, 2)).join(", ")}`,
+    );
   };
 
 console.log = failOnCall("log");

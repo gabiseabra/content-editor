@@ -17,7 +17,7 @@ import {
 import { createLogger, useLoggerPlugin } from "./use-logger-plugin";
 
 export type ContentEditableOptions = {
-  multiLine?: boolean;
+  inline?: boolean;
   logging?: boolean | "verbose";
   autoCommit?: boolean | number;
 };

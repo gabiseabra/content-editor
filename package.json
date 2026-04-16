@@ -9,7 +9,7 @@
     "docs"
   ],
   "scripts": {
-    "dev": "npm run storybook -w @content-editor/demo",
+    "dev": "npm run storybook -w docs",
     "build": "npm run build --workspaces",
     "clean": "npm run clean --workspaces",
     "lint": "eslint \"{api,web,common}/src/**/*.{ts,tsx}\"",

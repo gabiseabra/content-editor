@@ -3,7 +3,7 @@
 import type { Config } from "jest";
 
 export default {
-  projects: (["core", "utils", "test"] as const).map(
+  projects: (["core", "utils", "editable", "docs"] as const).map(
     (workspace): Config => ({
       displayName: workspace,
       rootDir: process.cwd(),

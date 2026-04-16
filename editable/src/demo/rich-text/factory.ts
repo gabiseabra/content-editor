@@ -1,4 +1,4 @@
-import { RichTextBlock, RichTextItem } from "../rich-text";
+import { RichTextBlock, RichTextItem } from ".";
 
 export function p(id: number, ...text: RichTextItem[]): RichTextBlock {
   return { type: "text", id, text };

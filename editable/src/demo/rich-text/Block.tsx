@@ -1,5 +1,5 @@
 import { HTMLAttributes, Ref } from "react";
-import { RichTextBlock } from "../utils/rich-text";
+import { RichTextBlock } from ".";
 import { Span } from "./Span";
 
 export function Block({
@@ -16,12 +16,15 @@ export function Block({
         contentEditable
         suppressContentEditableWarning
         dangerouslySetInnerHTML={{
-          __html: block.text
-            .map(
-              (item) =>
-                `<span class="${Span.className(item)}">${escapeHtml(item.text)}</span>`,
-            )
-            .join(""),
+          __html:
+            block.type === "text"
+              ? block.text
+                  .map(
+                    (item) =>
+                      `<span class="${Span.className(item)}">${escapeHtml(item.text)}</span>`,
+                  )
+                  .join("")
+              : escapeHtml(block.code),
         }}
         {...props}
       />

@@ -42,10 +42,48 @@
       "source": "./src/use-logger-plugin.ts",
       "types": "./dist/src/use-logger-plugin.d.ts",
       "default": "./dist/src/use-logger-plugin.js"
+    },
+    "./demo/plain-text": {
+      "source": "./src/demo/plain-text/index.ts",
+      "types": "./dist/src/demo/plain-text/index.d.ts",
+      "default": "./dist/src/demo/plain-text/index.js"
+    },
+    "./demo/plain-text/Editor": {
+      "source": "./src/demo/plain-text/Editor.tsx",
+      "types": "./dist/src/demo/plain-text/Editor.d.ts",
+      "default": "./dist/src/demo/plain-text/Editor.js"
+    },
+    "./demo/rich-text": {
+      "source": "./src/demo/rich-text/index.ts",
+      "types": "./dist/src/demo/rich-text/index.d.ts",
+      "default": "./dist/src/demo/rich-text/index.js"
+    },
+    "./demo/rich-text/command": {
+      "source": "./src/demo/rich-text/command.ts",
+      "types": "./dist/src/demo/rich-text/command.d.ts",
+      "default": "./dist/src/demo/rich-text/command.js"
+    },
+    "./demo/rich-text/factory": {
+      "source": "./src/demo/rich-text/factory.ts",
+      "types": "./dist/src/demo/rich-text/factory.d.ts",
+      "default": "./dist/src/demo/rich-text/factory.js"
+    },
+    "./demo/rich-text/Editor": {
+      "source": "./src/demo/rich-text/Editor.tsx",
+      "types": "./dist/src/demo/rich-text/Editor.d.ts",
+      "default": "./dist/src/demo/rich-text/Editor.js"
+    },
+    "./demo/rich-text/Editable": {
+      "source": "./src/demo/rich-text/Editable.tsx",
+      "types": "./dist/src/demo/rich-text/Editable.d.ts",
+      "default": "./dist/src/demo/rich-text/Editable.js"
     }
   },
   "scripts": {
     "build": "tsc -b",
     "clean": "tsc -b --clean && rm -rf dist"
+  },
+  "dependencies": {
+    "@content-editor/core": "*"
   }
 }

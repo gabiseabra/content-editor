@@ -1,7 +1,10 @@
+import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
 import { useContentEditablePlugin } from "@content-editor/editable";
 import { memo } from "react";
-import { PlainTextBlock } from "./utils/plain-text";
+import { PlainTextBlock } from ".";
+
+export type PlainTextEditor = ContentEditor<PlainTextBlock>;
 
 /**
  * This editor is lazy: it does not update the DOM unless you trigger a commit.

@@ -1,4 +1,4 @@
-import { RichTextItem } from "../utils/rich-text";
+import { RichTextItem } from ".";
 
 export function Span(item: RichTextItem) {
   if (!item.url) {
