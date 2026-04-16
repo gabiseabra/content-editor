@@ -32,6 +32,11 @@
       "types": "./dist/src/array.d.ts",
       "default": "./dist/src/array.js"
     },
+    "./escape-html": {
+      "source": "./src/escape-html.ts",
+      "types": "./dist/src/escape-html.d.ts",
+      "default": "./dist/src/escape-html.js"
+    },
     "./error": {
       "source": "./src/error.ts",
       "types": "./dist/src/error.d.ts",

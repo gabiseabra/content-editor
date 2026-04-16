@@ -1,3 +1,4 @@
+import { escapeHTML } from "@content-editor/utils/escape-html";
 import { HTMLAttributes, Ref } from "react";
 import { RichTextBlock } from ".";
 import { Span } from "./Span";
@@ -21,10 +22,10 @@ export function Block({
               ? block.text
                   .map(
                     (item) =>
-                      `<span class="${Span.className(item)}">${escapeHtml(item.text)}</span>`,
+                      `<span class="${Span.className(item)}">${escapeHTML(item.text)}</span>`,
                   )
                   .join("")
-              : escapeHtml(block.code),
+              : escapeHTML(block.code),
         }}
         {...props}
       />
@@ -33,7 +34,3 @@ export function Block({
     </>
   );
 }
-
-const escapeHtml = (s: string) => {
-  return new Option(s).innerHTML;
-};

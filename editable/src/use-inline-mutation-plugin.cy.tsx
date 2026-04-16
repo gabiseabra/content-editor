@@ -1,0 +1,165 @@
+import { SelectionRange } from "@content-editor/core";
+import { RichTextEditor } from "./demo/rich-text/Editor";
+import { p, span } from "./demo/rich-text/factory";
+
+describe("useInlineMutationPlugin", () => {
+  it("types some text and saves", () => {
+    const onChange = cy.stub().as("onChange");
+
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Hello"))]}
+        onChange={onChange}
+      />,
+    );
+
+    cy.get("p").click().type("{end} World").should("have.text", "Hello World");
+
+    cy.wait(200);
+
+    cy.get("@onChange").should("have.been.called");
+
+    cy.get("p").should("have.text", "Hello World");
+  });
+
+  it("inserts newline into the palceholder span", () => {
+    cy.mount(
+      <RichTextEditor id="test" autoCommit={200} inline value={[p(1)]} />,
+    );
+
+    cy.get("p")
+      .click()
+      .type("{shift}{enter}")
+      .type("{shift}{enter}")
+      .type("{shift}{enter}");
+    cy.get("p span").should("have.text", "\n\n\n");
+
+    cy.wait(200);
+
+    cy.get("p").should("have.text", "\n\n\n");
+  });
+
+  it("inserts newline at the end of a rich-text span", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Hello"))]}
+      />,
+    );
+
+    cy.get("p")
+      .click()
+      .type("{end}{shift}{enter}more")
+      .should("have.text", "Hello\nmore");
+
+    cy.wait(200);
+
+    cy.get("p").should("have.text", "Hello\nmore");
+  });
+
+  it("handles type characters then backspace some", () => {
+    cy.mount(
+      <RichTextEditor id="test" autoCommit={200} inline value={[p(1)]} />,
+    );
+
+    cy.get("p").click().type("Hello World").should("have.text", "Hello World");
+
+    cy.wait(200);
+
+    cy.get("p")
+      .type("{backspace}{backspace}{backspace}{backspace}{backspace}")
+      .should("have.text", "Hello ");
+  });
+
+  it("selects text then types to replace it", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Hello World"))]}
+      />,
+    );
+
+    cy.get("p")
+      .click()
+      .type("{selectAll}Replaced")
+      .should("have.text", "Replaced");
+  });
+
+  it("selects text then deletes it", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Hello World"))]}
+      />,
+    );
+
+    cy.get("p").click().type("{selectAll}{del}").should("have.text", "");
+  });
+
+  it("inserts text via execCommand (simulates paste)", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Before "))]}
+      />,
+    );
+
+    cy.get("p").click().type("{end}");
+
+    cy.document().then((doc) => {
+      doc.execCommand("insertText", false, "pasted text");
+    });
+
+    cy.get("p").should("have.text", "Before pasted text");
+  });
+
+  it("flushes pending changes before block split", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        value={[p(1, span("Initial"))]}
+      />,
+    );
+
+    // Type rapidly then immediately press Enter (which triggers block-mutation plugin)
+    // The typed text should not disappear (proves flush works before split)
+    cy.get("p").click().type("{selectAll}First line{enter}");
+
+    cy.get("p").eq(0).should("have.text", "First line");
+    cy.get("p").eq(1).should("exist");
+  });
+
+  it("keeps current selection after inline flush", () => {
+    cy.mount(
+      <RichTextEditor
+        id="test"
+        autoCommit={200}
+        inline
+        value={[p(1, span("Line 1"))]}
+      />,
+    );
+
+    cy.get("p")
+      .click()
+      .type("{moveToEnd}{shift}{enter}Line 2")
+      .type("{moveToEnd}!{uparrow}{home}");
+
+    cy.wait(200);
+
+    cy.get("p").then(([p]) => {
+      expect(SelectionRange.read(p)).to.deep.equal({ start: 0, end: 0 });
+    });
+  });
+});
