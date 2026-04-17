@@ -13,9 +13,11 @@ import { Span } from "./Span";
 
 export const RichTextBlock = memo(function RichTextBlock({
   editor,
+  filter,
   ...options
 }: ContentEditableOptions & {
   editor: ContentEditor<RichText>;
+  filter?: (block: RichText) => boolean;
 }) {
   const editable = useEditorPlugins(
     useHotkeyPlugin(`${ModKey}+b`, toggleAnnotation("bold")),
@@ -24,23 +26,26 @@ export const RichTextBlock = memo(function RichTextBlock({
     useContentEditablePlugin(RichText, options),
   )(editor);
 
-  return editor.blocks.map((block) => (
-    <p
-      key={block.id}
-      contentEditable
-      suppressContentEditableWarning
-      dangerouslySetInnerHTML={{
-        __html: block.text
-          .map(
-            (item) =>
-              `<span class="${Span.className(item)}">${escapeHTML(item.text)}</span>`,
-          )
-          .join(""),
-      }}
-      ref={editor.ref(block.id)}
-      {...editable(block)}
-    />
-  ));
+  return (filter ? editor.blocks.filter(filter) : editor.blocks).map(
+    (block) => (
+      <p
+        key={block.id}
+        contentEditable
+        suppressContentEditableWarning
+        dangerouslySetInnerHTML={{
+          __html: block.text
+            .map(
+              (item) =>
+                `<span class="${Span.className(item)}">${escapeHTML(item.text)}</span>`,
+            )
+            .join(""),
+        }}
+        className="sb-unstyled"
+        ref={editor.ref(block.id)}
+        {...editable(block)}
+      />
+    ),
+  );
 });
 
 const isMac = navigator.userAgent.match(/OS X 10/);

@@ -2,11 +2,12 @@ import { CodeBlock } from "@content-editor/code/demo/Block";
 import { Code } from "@content-editor/code/demo/model";
 import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { useEditorTraversal } from "@content-editor/core/use-editor-traversal";
+import { useEditorPrism } from "@content-editor/core/use-editor-prism";
 import { ContentEditableOptions } from "@content-editor/editable";
 import { RichTextBlock } from "@content-editor/editable/demo/rich-text/Block";
 import { RichText } from "@content-editor/editable/demo/rich-text/model";
-import Prism from "prismjs";
+import { Prism } from "@content-editor/utils/optics";
+import PrismJS from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
@@ -15,7 +16,7 @@ import { downgradeBlockType } from "../demo/command";
 import { DemoBlock } from "../demo/model";
 
 function highlight(code: string) {
-  return Prism.highlight(code, Prism.languages["tsx"], "tsx");
+  return PrismJS.highlight(code, PrismJS.languages["tsx"], "tsx");
 }
 
 export function DemoEditor({
@@ -34,19 +35,30 @@ export function DemoEditor({
     onCommit: onChange,
   });
 
+  const textEditor = useEditorPrism<DemoBlock, RichText>({
+    editor,
+    prism: Prism.fromGuard((b): b is RichText => b.type === "text"),
+  });
+
+  const codeEditor = useEditorPrism<DemoBlock, Code>({
+    editor,
+    prism: Prism.fromGuard((b): b is Code => b.type === "code"),
+  });
+
   return editor.blocks.map((block) =>
     block.type === "code" ? (
       <DemoCodeBlock
         key={block.id}
         id={block.id}
-        editor={editor}
+        editor={codeEditor}
+        parentEditor={editor}
         {...options}
       />
     ) : (
       <DemoTextBlock
         key={block.id}
         id={block.id}
-        editor={editor}
+        editor={textEditor}
         {...options}
       />
     ),
@@ -59,53 +71,31 @@ function DemoTextBlock({
   ...options
 }: ContentEditableOptions & {
   id: number;
-  editor: ContentEditor<DemoBlock>;
+  editor: ContentEditor<RichText>;
 }) {
-  const textEditor = useEditorTraversal<DemoBlock, RichText>({
-    id,
-    editor,
-    traversal: {
-      get(block) {
-        return block.type === "text" ? [block] : [];
-      },
-      modify(block, f) {
-        if (block.type !== "text") return block;
-        return f(block);
-      },
-    },
-  });
-
-  return <RichTextBlock editor={textEditor} {...options} />;
+  return (
+    <RichTextBlock editor={editor} filter={(b) => b.id === id} {...options} />
+  );
 }
 
 function DemoCodeBlock({
   id,
   editor,
+  parentEditor,
   ...options
 }: ContentEditableOptions & {
   id: number;
-  editor: ContentEditor<DemoBlock>;
+  editor: ContentEditor<Code>;
+  parentEditor: ContentEditor<DemoBlock>;
 }) {
-  const codeEditor = useEditorTraversal<DemoBlock, Code>({
-    id,
-    editor,
-    traversal: {
-      get(block) {
-        return block.type === "code" ? [block] : [];
-      },
-      modify(block, f) {
-        if (block.type !== "code") return block;
-        return f(block);
-      },
-    },
-  });
   return (
     <CodeBlock
-      editor={codeEditor}
+      editor={editor}
+      filter={(b) => b.id === id}
       highlight={highlight}
       pre={{ className: "sb-unstyled prism language-typescript" }}
       placeholder="Type some code..."
-      onDelete={() => editor.exec(downgradeBlockType, id)}
+      onDelete={() => parentEditor.exec(downgradeBlockType, id)}
       {...options}
     />
   );
