@@ -17,12 +17,7 @@ export function toggleAnnotation(
 
 export function setLink(url?: string): EditorCommand<RichText> {
   return ({ block, data: selection }) => {
-    if (
-      !selection ||
-      SelectionRange.isCollapsed(selection) ||
-      block.type !== "text"
-    )
-      return;
+    if (!selection || SelectionRange.isCollapsed(selection)) return;
 
     return RichText.map(
       block,

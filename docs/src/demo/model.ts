@@ -4,7 +4,7 @@ import { RichText } from "@content-editor/editable/demo/rich-text/model";
 export type DemoBlock = Code | RichText;
 
 function toText(block: DemoBlock): RichText {
-  if (block.type === "text") return block;
+  if (block.type !== "code") return block;
   return { type: "text", id: block.id, text: [{ text: block.code }] };
 }
 

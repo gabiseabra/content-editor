@@ -14,28 +14,23 @@ export type RichTextItem = {
   url?: string;
 } & Annotations;
 
-export type RichText = { type: "text"; id: number; text: RichTextItem[] };
+export type RichText =
+  | { type: "heading"; id: number; text: RichTextItem[] }
+  | { type: "subheading"; id: number; text: RichTextItem[] }
+  | { type: "text"; id: number; text: RichTextItem[] };
 
 export const RichText = {
   /** Block mutation strategy */
 
   merge: (left: RichText, right: RichText): RichText => {
-    return RichText.normalize({
-      type: "text",
-      id: left.id,
-      text: [...left.text, ...right.text],
-    });
+    return RichText.normalize({ ...left, text: [...left.text, ...right.text] });
   },
 
   split: (block: RichText, offset: number) => ({
     left: RichText.normalize(RichText.slice(block, 0, offset)),
     right: RichText.normalize(
       RichText.slice(
-        {
-          type: "text",
-          id: Math.random(),
-          text: block.text,
-        },
+        { ...block, id: Math.random() },
         offset,
         RichText.length(block),
       ),
@@ -55,8 +50,7 @@ export const RichText = {
     const after = RichText.slice(block, offset + deleteCount, total);
 
     return RichText.normalize({
-      type: "text",
-      id: block.id,
+      ...block,
       text: [...before.text, { text }, ...after.text],
     });
   },
@@ -152,8 +146,6 @@ export const RichText = {
     start: number,
     end: number = RichText.length(block),
   ) => {
-    if (block.type !== "text") return block;
-
     const hasAnnotations = RichText.hasAnnotations(
       block,
       annotations,

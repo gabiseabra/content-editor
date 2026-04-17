@@ -37,7 +37,7 @@ export function DemoEditor({
 
   const textEditor = useEditorPrism<DemoBlock, RichText>({
     editor,
-    prism: Prism.fromGuard((b): b is RichText => b.type === "text"),
+    prism: Prism.fromGuard((b): b is RichText => b.type !== "code"),
   });
 
   const codeEditor = useEditorPrism<DemoBlock, Code>({
