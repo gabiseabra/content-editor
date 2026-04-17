@@ -16,6 +16,7 @@ export type CodeBlockProps = {
   readOnly?: boolean;
   placeholder?: string;
   onDelete?: () => void;
+  filter?: (block: Code) => boolean;
 
   pre?: ForwardedProps;
   code?: ForwardedProps;
@@ -28,6 +29,7 @@ export const CodeBlock = memo(function CodeBlock({
   readOnly,
   disabled,
   onDelete,
+  filter,
 
   pre,
   code,
@@ -47,79 +49,81 @@ export const CodeBlock = memo(function CodeBlock({
     return { children: html };
   };
 
-  return editor.blocks.map((block) => (
-    <pre
-      key={block.id}
-      {...pre}
-      style={{ position: "relative", ...pre?.style }}
-    >
-      <code
-        ref={codeRef}
-        {...code}
-        {...(readOnly
-          ? {
-              ["aria-hidden"]: "true",
-              style: {
-                margin: 0,
-                overflow: "hidden",
-                ...code?.style,
-              },
-            }
-          : {
-              style: {
-                position: "relative",
-                zIndex: 1,
-                pointerEvents: "none",
-                ...code?.style,
-              },
-            })}
-        {...contentProps(block.code)}
-      />
-
-      {!readOnly && (
-        <textarea
-          ref={editor.ref(block.id)}
-          value={block.code}
-          autoCapitalize="off"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          data-gramm={false}
-          disabled={disabled}
-          {...props}
-          {...textarea}
-          {...editable(block)}
-          onScroll={(event) => {
-            if (!codeRef.current) return;
-            codeRef.current.scrollLeft = event.currentTarget.scrollLeft;
-            codeRef.current.scrollTop = event.currentTarget.scrollTop;
-          }}
-          style={{
-            border: 0,
-            padding: 0,
-            background: "none",
-            boxSizing: "border-box",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            height: "100%",
-            width: "100%",
-            resize: "none",
-            color: "inherit",
-            overflowY: "hidden",
-            overflowX: "auto",
-            pointerEvents: "all",
-            MozOsxFontSmoothing: "grayscale",
-            ...(!code
-              ? {}
-              : {
-                  WebkitFontSmoothing: "antialiased",
-                  WebkitTextFillColor: "transparent",
-                }),
-            ...textarea?.style,
-          }}
+  return (filter ? editor.blocks.filter(filter) : editor.blocks).map(
+    (block) => (
+      <pre
+        key={block.id}
+        {...pre}
+        style={{ position: "relative", ...pre?.style }}
+      >
+        <code
+          ref={codeRef}
+          {...code}
+          {...(readOnly
+            ? {
+                ["aria-hidden"]: "true",
+                style: {
+                  margin: 0,
+                  overflow: "hidden",
+                  ...code?.style,
+                },
+              }
+            : {
+                style: {
+                  position: "relative",
+                  zIndex: 1,
+                  pointerEvents: "none",
+                  ...code?.style,
+                },
+              })}
+          {...contentProps(block.code)}
         />
-      )}
-    </pre>
-  ));
+
+        {!readOnly && (
+          <textarea
+            ref={editor.ref(block.id)}
+            value={block.code}
+            autoCapitalize="off"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+            data-gramm={false}
+            disabled={disabled}
+            {...props}
+            {...textarea}
+            {...editable(block)}
+            onScroll={(event) => {
+              if (!codeRef.current) return;
+              codeRef.current.scrollLeft = event.currentTarget.scrollLeft;
+              codeRef.current.scrollTop = event.currentTarget.scrollTop;
+            }}
+            style={{
+              border: 0,
+              padding: 0,
+              background: "none",
+              boxSizing: "border-box",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              height: "100%",
+              width: "100%",
+              resize: "none",
+              color: "inherit",
+              overflowY: "hidden",
+              overflowX: "auto",
+              pointerEvents: "all",
+              MozOsxFontSmoothing: "grayscale",
+              ...(!code
+                ? {}
+                : {
+                    WebkitFontSmoothing: "antialiased",
+                    WebkitTextFillColor: "transparent",
+                  }),
+              ...textarea?.style,
+            }}
+          />
+        )}
+      </pre>
+    ),
+  );
 });
