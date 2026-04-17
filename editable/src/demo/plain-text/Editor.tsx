@@ -30,7 +30,7 @@ export const PlainTextEditor = memo(function PlainTextEditor(options: {
   return editor.blocks.map((block) => (
     <p
       key={block.id}
-      contentEditable
+      contentEditable="plaintext-only"
       suppressContentEditableWarning
       className="sb-unstyled"
       ref={editor.ref(block.id)}

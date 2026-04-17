@@ -8,7 +8,7 @@ import { useHotkeyPlugin } from "@content-editor/editable/use-hotkey-plugin";
 import { escapeHTML } from "@content-editor/utils/escape-html";
 import { memo } from "react";
 import { toggleAnnotation } from "./command";
-import { RichText } from "./model";
+import { RichText, RichTextItem } from "./model";
 import { Span } from "./Span";
 
 export const RichTextBlock = memo(function RichTextBlock({
@@ -27,26 +27,40 @@ export const RichTextBlock = memo(function RichTextBlock({
   )(editor);
 
   return (filter ? editor.blocks.filter(filter) : editor.blocks).map(
-    (block) => (
-      <p
-        key={block.id}
-        contentEditable
-        suppressContentEditableWarning
-        dangerouslySetInnerHTML={{
-          __html: block.text
-            .map(
-              (item) =>
-                `<span class="${Span.className(item)}">${escapeHTML(item.text)}</span>`,
-            )
-            .join(""),
-        }}
-        className="sb-unstyled"
-        ref={editor.ref(block.id)}
-        {...editable(block)}
-      />
-    ),
+    (block) => {
+      const props = {
+        ref: editor.ref(block.id),
+        ...contentProps(block.text),
+        ...editable(block),
+      };
+
+      switch (block.type) {
+        case "heading":
+          return <h1 key={block.id} {...props} />;
+        case "subheading":
+          return <h2 key={block.id} {...props} />;
+        case "text":
+          return <p key={block.id} {...props} />;
+        default:
+          return block satisfies never;
+      }
+    },
   );
 });
 
 const isMac = navigator.userAgent.match(/OS X 10/);
 const ModKey = isMac ? "Meta" : "Ctrl";
+
+const contentProps = (text: RichTextItem[]) => ({
+  className: "sb-unstyled",
+  contentEditable: "plaintext-only" as const,
+  suppressContentEditableWarning: true,
+  dangerouslySetInnerHTML: {
+    __html: text
+      .map(
+        (item) =>
+          `<span class="${Span.className(item)}">${escapeHTML(item.text)}</span>`,
+      )
+      .join(""),
+  },
+});
