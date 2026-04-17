@@ -73,14 +73,6 @@ export const EditorAction = {
         );
     }
   },
-
-  applyCmd<TBlock extends AnyBlock>(
-    actions: EditorActionCmd<TBlock>[],
-    blocks: TBlock[],
-  ) {
-    if (!NonEmpty.isNonEmpty(actions)) return blocks;
-    return EditorAction.apply({ type: "apply", actions }, blocks);
-  },
 };
 
 function flat<TBlock extends AnyBlock>(
