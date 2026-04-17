@@ -40,14 +40,14 @@ export function DemoEditor({
         key={block.id}
         id={block.id}
         editor={editor}
-        options={options}
+        {...options}
       />
     ) : (
       <DemoTextBlock
         key={block.id}
         id={block.id}
         editor={editor}
-        options={options}
+        {...options}
       />
     ),
   );
@@ -56,11 +56,10 @@ export function DemoEditor({
 function DemoTextBlock({
   id,
   editor,
-  options,
-}: {
+  ...options
+}: ContentEditableOptions & {
   id: number;
   editor: ContentEditor<DemoBlock>;
-  options: ContentEditableOptions;
 }) {
   const textEditor = useEditorTraversal<DemoBlock, RichText>({
     id,
@@ -82,11 +81,10 @@ function DemoTextBlock({
 function DemoCodeBlock({
   id,
   editor,
-  options: _options,
-}: {
+  ...options
+}: ContentEditableOptions & {
   id: number;
   editor: ContentEditor<DemoBlock>;
-  options: ContentEditableOptions;
 }) {
   const codeEditor = useEditorTraversal<DemoBlock, Code>({
     id,
@@ -108,6 +106,7 @@ function DemoCodeBlock({
       pre={{ className: "sb-unstyled prism language-typescript" }}
       placeholder="Type some code..."
       onDelete={() => editor.exec(downgradeBlockType, id)}
+      {...options}
     />
   );
 }
