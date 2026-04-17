@@ -40,7 +40,7 @@ export function useEditorTraversal<
         block: traversal.modify(
           parentBlock,
           (block) =>
-            EditorAction.applyCmd(EditorAction.flat([action]), [block]).find(
+            EditorAction.apply(action, [block]).find(
               (b) => b.id === block.id,
             ) ?? block,
         ),
