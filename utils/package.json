@@ -37,10 +37,10 @@
       "types": "./dist/src/escape-html.d.ts",
       "default": "./dist/src/escape-html.js"
     },
-    "./apply-ref": {
-      "source": "./src/apply-ref.ts",
-      "types": "./dist/src/apply-ref.d.ts",
-      "default": "./dist/src/apply-ref.js"
+    "./ref": {
+      "source": "./src/ref.ts",
+      "types": "./dist/src/ref.d.ts",
+      "default": "./dist/src/ref.js"
     },
     "./error": {
       "source": "./src/error.ts",
