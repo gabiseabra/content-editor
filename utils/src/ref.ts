@@ -18,3 +18,7 @@ export function applyRef<T>(ref?: Ref<T>) {
     }
   };
 }
+
+export function mergeRefs<T>(...refs: Ref<T>[]) {
+  return (element: T | null) => refs.forEach((ref) => applyRef(ref)(element));
+}
