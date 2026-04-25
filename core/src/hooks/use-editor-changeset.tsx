@@ -70,15 +70,14 @@ export function useEditorChangeset<TBlock extends AnyBlock>(
 
       peek(id) {
         const { batchId, actions } = changesetRef.current;
-
-        if (!NonEmpty.isNonEmpty(actions)) return null;
+        const blocks = editor.history.getState();
 
         editor.peek(id, new useEditorChangeset.FlushData(batchId));
 
         return (
-          EditorAction.apply(
-            { type: "apply", actions },
-            editor.history.getState(),
+          (!NonEmpty.isNonEmpty(actions)
+            ? blocks
+            : EditorAction.apply({ type: "apply", actions }, blocks)
           ).find((b) => b.id === id) ?? null
         );
       },
