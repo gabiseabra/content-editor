@@ -61,6 +61,9 @@ export function useEditorOptic<
 }): ContentEditor<TBlock> {
   const bus = useMemo(() => new EditorEventTarget<TBlock>(), []);
   const blocks = useMemo(() => project(parent.blocks), [parent]);
+  const registeredIds = useRef(
+    new Set<TParent["id"]>(parentId ? [parentId] : []),
+  );
 
   const getLatest = (
     parentAction: EditorHistoryEntry<TParent>,
@@ -134,36 +137,45 @@ export function useEditorOptic<
         },
 
         ref(id) {
-          if (parentId !== undefined) {
-            const parentRef = parent.ref(parentId);
-            return Object.assign(
-              (element: HTMLElement | null) => {
-                if (element) parentRef.children.set(id, element);
-                else parentRef.children.delete(id);
-              },
-              {
-                get element() {
-                  return parentRef.children.get(id) ?? null;
-                },
-                get children() {
-                  return new Map();
-                },
-              },
-            );
-          }
+          const parentBlock = parent.blocks.find(
+            (b) => b.id === (parentId ?? id),
+          );
+          const parentRef = parentBlock && parent.ref(parentBlock.id);
 
-          const parentBlock = parent.blocks.find((b) => b.id === id);
-          if (!parentBlock) {
-            return Object.assign(() => {}, {
+          return Object.assign(
+            (element: HTMLElement | null) => {
+              if (typeof parentId === "undefined") {
+                if (element) registeredIds.current.add(id);
+                else registeredIds.current.delete(id);
+
+                parentRef?.(element);
+              } else if (element) {
+                parentRef?.children.set(id, element);
+              } else {
+                parentRef?.children.delete(id);
+              }
+            },
+            {
               get element() {
-                return null;
+                if (typeof parentId === "undefined" && parentRef) {
+                  return registeredIds.current.has(id)
+                    ? parentRef.element
+                    : null;
+                } else {
+                  return parentRef?.children.get(id) ?? null;
+                }
               },
               get children() {
-                return new Map();
+                if (typeof parentId === "undefined" && parentRef) {
+                  return registeredIds.current.has(id)
+                    ? parentRef.children
+                    : new Map();
+                } else {
+                  return new Map();
+                }
               },
-            });
-          }
-          return parent.ref(parentBlock.id);
+            },
+          );
         },
 
         exec(cmd, id) {
