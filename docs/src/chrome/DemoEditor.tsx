@@ -35,30 +35,19 @@ export function DemoEditor({
     onCommit: onChange,
   });
 
-  const textEditor = useEditorPrism<DemoBlock, RichText>({
-    editor,
-    prism: Prism.fromGuard((b): b is RichText => b.type !== "code"),
-  });
-
-  const codeEditor = useEditorPrism<DemoBlock, Code>({
-    editor,
-    prism: Prism.fromGuard((b): b is Code => b.type === "code"),
-  });
-
   return editor.blocks.map((block) =>
     block.type === "code" ? (
       <DemoCodeBlock
         key={block.id}
         id={block.id}
-        editor={codeEditor}
-        parentEditor={editor}
+        editor={editor}
         {...options}
       />
     ) : (
       <DemoTextBlock
         key={block.id}
         id={block.id}
-        editor={textEditor}
+        editor={editor}
         {...options}
       />
     ),
@@ -71,31 +60,45 @@ function DemoTextBlock({
   ...options
 }: ContentEditableOptions & {
   id: number;
-  editor: ContentEditor<RichText>;
+  editor: ContentEditor<DemoBlock>;
 }) {
+  const textEditor = useEditorPrism<DemoBlock, RichText>({
+    id,
+    editor,
+    prism: Prism.fromGuard((b): b is RichText => b.type !== "code"),
+  });
+
   return (
-    <RichTextBlock editor={editor} filter={(b) => b.id === id} {...options} />
+    <RichTextBlock
+      editor={textEditor}
+      filter={(b) => b.id === id}
+      {...options}
+    />
   );
 }
 
 function DemoCodeBlock({
   id,
   editor,
-  parentEditor,
   ...options
 }: ContentEditableOptions & {
   id: number;
-  editor: ContentEditor<Code>;
-  parentEditor: ContentEditor<DemoBlock>;
+  editor: ContentEditor<DemoBlock>;
 }) {
+  const codeEditor = useEditorPrism<DemoBlock, Code>({
+    id,
+    editor,
+    prism: Prism.fromGuard((b): b is Code => b.type === "code"),
+  });
+
   return (
     <CodeBlock
-      editor={editor}
+      editor={codeEditor}
       filter={(b) => b.id === id}
       highlight={highlight}
       pre={{ className: "sb-unstyled prism language-typescript" }}
       placeholder="Type some code..."
-      onDelete={() => parentEditor.exec(downgradeBlockType, id)}
+      onDelete={() => editor.exec(downgradeBlockType, id)}
       {...options}
     />
   );

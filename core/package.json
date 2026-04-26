@@ -33,10 +33,10 @@
       "types": "./dist/src/hooks/use-editor-prism.d.ts",
       "default": "./dist/src/hooks/use-editor-prism.js"
     },
-    "./use-editor-traversal": {
-      "source": "./src/hooks/use-editor-traversal.ts",
-      "types": "./dist/src/hooks/use-editor-traversal.d.ts",
-      "default": "./dist/src/hooks/use-editor-traversal.js"
+    "./use-editor-lens": {
+      "source": "./src/hooks/use-editor-lens.ts",
+      "types": "./dist/src/hooks/use-editor-lens.d.ts",
+      "default": "./dist/src/hooks/use-editor-lens.js"
     },
     "./use-event-listener-plugin": {
       "source": "./src/hooks/use-event-listener-plugin.ts",
