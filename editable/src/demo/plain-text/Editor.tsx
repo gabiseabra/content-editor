@@ -25,6 +25,7 @@ export const PlainTextEditor = memo(function PlainTextEditor(options: {
   });
   const editable = useContentEditablePlugin(PlainText, {
     logging: true,
+    autoCommit: true,
   })(editor);
 
   return editor.blocks.map((block) => (
