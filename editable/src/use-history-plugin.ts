@@ -43,21 +43,23 @@ export const useHistoryEventsPlugin =
       if (!isMod) return;
 
       if (!options?.undoDisabled && isUndo(e)) {
+        const data = new useHistoryEventsPlugin.EventData("undo");
         e.preventDefault();
 
-        if (editor.history.undo(true) && editor.peek(block.id)) {
+        if (editor.history.undo(true) && editor.peek(block.id, data)) {
           editor.history.undo();
-          editor.commit(new useHistoryEventsPlugin.EventData("undo"));
+          editor.commit(data);
           return;
         }
       }
 
       if (!options?.redoDisabled && isRedo(e)) {
+        const data = new useHistoryEventsPlugin.EventData("redo");
         e.preventDefault();
 
-        if (editor.history.redo(true) && editor.peek(block.id)) {
+        if (editor.history.redo(true) && editor.peek(block.id, data)) {
           editor.history.redo();
-          editor.commit(new useHistoryEventsPlugin.EventData("redo"));
+          editor.commit(data);
           return;
         }
       }
