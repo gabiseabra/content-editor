@@ -15,15 +15,17 @@ export function useEditorPrism<
   TParent extends AnyBlock,
   TBlock extends TParent,
 >({
+  id: parentId,
   editor,
   prism,
 }: {
+  id?: TParent["id"];
   editor: ContentEditor<TParent>;
   prism: Prism<TParent, TBlock>;
 }): ContentEditor<TBlock> {
   return useEditorOptic({
     editor,
-    // No parentId: child id equals parent id.
+    parentId,
     project: (blocks) =>
       blocks.flatMap((b) => {
         const child = prism.get(b);
