@@ -18,5 +18,5 @@ jobs:
       - name: Cypress Component Tests
         uses: cypress-io/github-action@v7
         with:
-          component: true
           build: npm run build
+          command: npm run test:cy
