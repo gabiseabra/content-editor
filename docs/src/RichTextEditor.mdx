@@ -1,8 +1,8 @@
 import componentSource from "@content-editor/editable/demo/rich-text/Block?raw";
 import commandSource from "@content-editor/editable/demo/rich-text/command?raw";
+import { RichTextEditor } from "@content-editor/editable/demo/rich-text/Editor";
 import richTextSource from "@content-editor/editable/demo/rich-text/model?raw";
 import { Meta, Source } from "@storybook/addon-docs/blocks";
-import { DemoEditor } from "./chrome/DemoEditor";
 import { code, p, span } from "./demo/factory";
 import { extractExport } from "./utils/code";
 
@@ -10,7 +10,7 @@ import { extractExport } from "./utils/code";
 
 # RichTextEditor
 
-<DemoEditor
+<RichTextEditor
   id="demo"
   logging
   value={[
@@ -35,15 +35,23 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
-    code(
-      2,
-      [
-        extractExport(richTextSource, "type", "Annotations"),
-        extractExport(richTextSource, "type", "RichTextItem"),
-        extractExport(richTextSource, "type", "RichText"),
-        `export const RichText = { /* everything that we saw in PlainText and more */ };`,
-      ].join("\n\n"),
-    ),
+  ]}
+/>
+
+<Source
+  code={[
+    extractExport(richTextSource, "type", "Annotations"),
+    extractExport(richTextSource, "type", "RichTextItem"),
+    extractExport(richTextSource, "type", "RichText"),
+    `export const RichText = { /* everything that we saw in PlainText and more */ };`,
+  ].join("\n\n")}
+  language="ts"
+/>
+
+<RichTextEditor
+  id="demo2"
+  logging
+  value={[
     p(
       3,
       span(
@@ -61,7 +69,18 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
-    code(4, extractExport(commandSource, "function", "toggleAnnotation")),
+  ]}
+/>
+
+<Source
+  code={extractExport(commandSource, "function", "toggleAnnotation")}
+  language="ts"
+/>
+
+<RichTextEditor
+  id="demo2"
+  logging
+  value={[
     p(
       5,
       span(
@@ -89,6 +108,7 @@ import { extractExport } from "./utils/code";
         ].join(" "),
       ),
     ),
-    code(7, componentSource),
   ]}
 />
+
+<Source code={componentSource} language="ts" />
