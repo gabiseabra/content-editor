@@ -3,10 +3,15 @@ import { defineConfig } from "vite";
 
 export default defineConfig(() => ({
   plugins: [react()],
+
+  optimizeDeps: {
+    exclude: [
+      "@content-editor/core",
+      "@content-editor/editable",
+      "@content-editor/utils",
+    ],
+  },
   resolve: {
     preserveSymlinks: true,
-    // alias: {
-    //   "@notion-site/common": resolve("../common/src/"),
-    // },
   },
 }));
