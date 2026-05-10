@@ -120,4 +120,16 @@ describe("useHistoryPlugin", () => {
         expect(SelectionRange.read(p)).to.deep.equal({ start: 0, end: 0 });
       });
   });
+
+  it("restores selection to the next block on split", () => {
+    cy.mount(
+      <RichTextEditor id="test" autoCommit={200} value={[p(1, span(""))]} />,
+    );
+
+    cy.get("p").click().type("abc{enter}");
+
+    cy.get("p").should("have.length", 2);
+    cy.get("p").eq(0).should("have.text", "abc");
+    cy.get("p").eq(1).should("have.text", "").should("have.focus");
+  });
 });
