@@ -48,6 +48,8 @@ export function useEditorChangeset<TBlock extends AnyBlock>(
       discard() {
         changesetRef.current.actions = [];
         changesetRef.current.batchId = Math.random();
+        changesetRef.current.targetBefore = EditorTarget.empty();
+        changesetRef.current.targetAfter = EditorTarget.empty();
       },
 
       push({ targetAfter, targetBefore, ...action }) {

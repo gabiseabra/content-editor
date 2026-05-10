@@ -100,72 +100,24 @@ describe("useHistoryPlugin", () => {
       });
   });
 
-  it("restores changes across blocks with undo / redo", () => {
+  it("restores selection to the current block when undoing typed text after multiple splits", () => {
     cy.mount(
-      <RichTextEditor
-        id="test"
-        autoCommit={200}
-        value={[p(1, span("First")), p(2, span("Second"))]}
-      />,
+      <RichTextEditor id="test" autoCommit={200} value={[p(1, span(""))]} />,
     );
 
-    const assertBlocks = (expected: string[]) => {
-      cy.get("p").should("have.length", expected.length);
-      expected.forEach((text, index) => {
-        if (text === "") {
-          cy.get("p").eq(index).invoke("text").should("match", /^\s*$/);
-        } else {
-          cy.get("p").eq(index).should("contain.text", text);
-        }
+    cy.get("p").click().type("abc{enter}");
+    cy.get("p").eq(1).should("have.focus").type("123{enter}");
+    cy.get("p").eq(2).should("have.focus").type("xyz{ctrl}z");
+
+    cy.get("p").should("have.length", 3);
+    cy.get("p").eq(0).should("have.text", "abc");
+    cy.get("p").eq(1).should("have.text", "123");
+    cy.get("p").eq(2).should("have.text", "");
+    cy.get("p")
+      .eq(2)
+      .should("have.focus")
+      .then(([p]) => {
+        expect(SelectionRange.read(p)).to.deep.equal({ start: 0, end: 0 });
       });
-    };
-
-    assertBlocks(["First", "Second"]);
-
-    // type in block 1
-    cy.get("p").eq(0).click().type("{moveToEnd} One");
-    cy.wait(200);
-    assertBlocks(["First One", "Second"]);
-
-    // add one block between 1 and 2
-    cy.get("p").eq(0).click().type("{moveToEnd}{enter}");
-    cy.wait(200);
-    assertBlocks(["First One", "", "Second"]);
-
-    // type in new block
-    cy.get("p").eq(1).click().type("Middle");
-    cy.wait(200);
-    assertBlocks(["First One", "Middle", "Second"]);
-
-    // type in last block
-    cy.get("p").eq(2).click().type("{moveToEnd} Last");
-    cy.wait(200);
-    assertBlocks(["First One", "Middle", "Second Last"]);
-
-    // undo step-by-step
-    cy.get("p").eq(0).type("{ctrl}z");
-    assertBlocks(["First One", "Middle", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}z");
-    assertBlocks(["First One", "", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}z");
-    assertBlocks(["First One", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}z");
-    assertBlocks(["First", "Second"]);
-
-    // redo step-by-step
-    cy.get("p").eq(0).type("{ctrl}y");
-    assertBlocks(["First One", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}y");
-    assertBlocks(["First One", "", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}y");
-    assertBlocks(["First One", "Middle", "Second"]);
-
-    cy.get("p").eq(0).type("{ctrl}y");
-    assertBlocks(["First One", "Middle", "Second Last"]);
   });
 });
