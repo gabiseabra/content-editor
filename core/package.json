@@ -18,30 +18,15 @@
       "types": "./dist/src/hooks/use-editor-changeset.d.ts",
       "default": "./dist/src/hooks/use-editor-changeset.js"
     },
-    "./use-editor-plugins": {
-      "source": "./src/hooks/use-editor-plugins.ts",
-      "types": "./dist/src/hooks/use-editor-plugins.d.ts",
-      "default": "./dist/src/hooks/use-editor-plugins.js"
+    "./use-editor-projection": {
+      "source": "./src/hooks/use-editor-projection.tsx",
+      "types": "./dist/src/hooks/use-editor-projection.d.ts",
+      "default": "./dist/src/hooks/use-editor-projection.js"
     },
     "./use-editor-target": {
       "source": "./src/hooks/use-editor-target.tsx",
       "types": "./dist/src/hooks/use-editor-target.d.ts",
       "default": "./dist/src/hooks/use-editor-target.js"
-    },
-    "./use-editor-prism": {
-      "source": "./src/hooks/use-editor-prism.ts",
-      "types": "./dist/src/hooks/use-editor-prism.d.ts",
-      "default": "./dist/src/hooks/use-editor-prism.js"
-    },
-    "./use-editor-lens": {
-      "source": "./src/hooks/use-editor-lens.ts",
-      "types": "./dist/src/hooks/use-editor-lens.d.ts",
-      "default": "./dist/src/hooks/use-editor-lens.js"
-    },
-    "./use-event-listener-plugin": {
-      "source": "./src/hooks/use-event-listener-plugin.ts",
-      "types": "./dist/src/hooks/use-event-listener-plugin.d.ts",
-      "default": "./dist/src/hooks/use-event-listener-plugin.js"
     },
     "./use-event-listener": {
       "source": "./src/hooks/use-event-listener.ts",

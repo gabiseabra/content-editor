@@ -8,6 +8,17 @@
       "types": "./dist/src/index.d.ts",
       "default": "./dist/src/index.js"
     },
+    "./use-editable-plugin": {
+      "source": "./src/use-editable-plugin.ts",
+      "types": "./dist/src/use-editable-plugin.d.ts",
+      "default": "./dist/src/use-editable-plugin.js"
+    },
+
+    "./use-editable-plugin-stack": {
+      "source": "./src/use-editable-plugin-stack.ts",
+      "types": "./dist/src/use-editable-plugin-stack.d.ts",
+      "default": "./dist/src/use-editable-plugin-stack.js"
+    },
     "./use-auto-commit-plugin": {
       "source": "./src/use-auto-commit-plugin.ts",
       "types": "./dist/src/use-auto-commit-plugin.d.ts",

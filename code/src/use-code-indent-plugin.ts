@@ -1,12 +1,11 @@
 import {
   AnyBlock,
   ContentEditor,
-  EditorPlugin,
   SelectionRange,
   SpliceRange,
 } from "@content-editor/core";
+import { EditablePlugin, Update } from "@content-editor/editable";
 import { runGenerator } from "@content-editor/utils/generator";
-import { Update } from "../../editable/src";
 import { getLines } from "./utils/get-lines";
 
 type CodeIndentOptions<TBlock extends AnyBlock> = {
@@ -17,7 +16,7 @@ type CodeIndentOptions<TBlock extends AnyBlock> = {
 export const useCodeIndentPlugin =
   <TBlock extends AnyBlock>(
     options: CodeIndentOptions<TBlock>,
-  ): EditorPlugin<TBlock> =>
+  ): EditablePlugin<TBlock> =>
   (editor) =>
   (block) => ({
     onKeyDown(e) {

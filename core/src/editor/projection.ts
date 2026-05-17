@@ -18,7 +18,7 @@ export type EditorProjection<
 };
 
 export const EditorProjection = {
-  fromGuard<ID, TParent extends AnyBlock, TBlock extends TParent>(
+  fromGuard<TParent extends AnyBlock, TBlock extends TParent>(
     guard: (block: TParent) => block is TBlock,
   ): EditorProjection<TParent, TBlock> {
     return {

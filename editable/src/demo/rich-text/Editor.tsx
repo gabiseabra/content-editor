@@ -1,6 +1,6 @@
 import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { ContentEditableOptions } from "@content-editor/editable";
+import { EditablePluginOptions } from "@content-editor/editable/use-editable-plugin";
 import { Ref, useImperativeHandle } from "react";
 import { RichTextBlock } from "./Block";
 import { RichText } from "./model";
@@ -13,7 +13,7 @@ export function RichTextEditor({
   value,
   onChange,
   ...options
-}: ContentEditableOptions & {
+}: EditablePluginOptions & {
   ref?: Ref<RichTextEditor>;
   id: string;
   value: RichText[];

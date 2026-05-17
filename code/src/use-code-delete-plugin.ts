@@ -1,7 +1,7 @@
-import { AnyEditorPlugin } from "@content-editor/core";
+import { AnyEditablePlugin } from "@content-editor/editable";
 
 export const useCodeDeletePlugin =
-  (onDelete?: () => void): AnyEditorPlugin =>
+  (onDelete?: () => void): AnyEditablePlugin =>
   (editor) =>
   (block) => ({
     onKeyDown(e) {

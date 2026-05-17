@@ -1,9 +1,10 @@
-import { AnyBlock, AnyEditorPlugin, ContentEditor } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
+import { AnyBlock, ContentEditor } from "@content-editor/core";
 import { useEventListener } from "@content-editor/core/use-event-listener";
 import { ANSI } from "@content-editor/utils/ansi";
 import { SelectionRange } from "@content-editor/utils/selection-range";
 import { KeyboardEvent } from "react";
+import { AnyEditablePlugin } from ".";
+import { useEditablePluginStack } from "./use-editable-plugin-stack";
 
 /** Composed plugin that combines history restoration and undo/redo keyboard events. */
 export const useHistoryPlugin = (options?: {
@@ -13,8 +14,8 @@ export const useHistoryPlugin = (options?: {
   restoreDisabled?: boolean;
   undoDisabled?: boolean;
   redoDisabled?: boolean;
-}): AnyEditorPlugin =>
-  useEditorPlugins(
+}): AnyEditablePlugin =>
+  useEditablePluginStack(
     useHistoryRestorationPlugin({
       global: options?.global,
       disabled: options?.restoreDisabled || options?.disabled,
@@ -32,7 +33,7 @@ export const useHistoryEventsPlugin =
     disabled?: boolean;
     undoDisabled?: boolean;
     redoDisabled?: boolean;
-  }): AnyEditorPlugin =>
+  }): AnyEditablePlugin =>
   (editor) =>
   (block) => ({
     onKeyDown(e) {
@@ -72,7 +73,7 @@ useHistoryEventsPlugin.EventData = class HistoryEventData {
 
 /** Plugin that restores cursor selection to the correct position after an undo or redo. */
 export const useHistoryRestorationPlugin =
-  (options?: { global?: boolean; disabled?: boolean }): AnyEditorPlugin =>
+  (options?: { global?: boolean; disabled?: boolean }): AnyEditablePlugin =>
   (editor) => {
     useEventListener(editor.bus, "ready", ({ editor }) => {
       if (!options?.disabled) restoreSelection(editor, options);

@@ -1,6 +1,7 @@
-import { AnyEditorPlugin, EditorTarget } from "@content-editor/core";
+import { EditorTarget } from "@content-editor/core";
 import { SelectionRange } from "@content-editor/utils/selection-range";
 import { useRef } from "react";
+import { AnyEditablePlugin } from ".";
 
 /**
  * Auto commits changes after input, debounced by `debounceMs`.
@@ -9,7 +10,7 @@ import { useRef } from "react";
  * is still dirty when the debounce timer fires.
  */
 export const useAutoCommitPlugin =
-  (options?: { disabled?: boolean; debounceMs?: number }): AnyEditorPlugin =>
+  (options?: { disabled?: boolean; debounceMs?: number }): AnyEditablePlugin =>
   (editor) => {
     const commitTimeoutRef = useRef<number>(null);
 

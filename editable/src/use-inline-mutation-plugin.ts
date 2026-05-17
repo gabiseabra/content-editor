@@ -1,15 +1,15 @@
 import {
   AnyBlock,
   ContentEditor,
-  EditorPlugin,
   SelectionRange,
   Slot,
   SpliceRange,
 } from "@content-editor/core";
 import { useLazyEditorChangeset } from "@content-editor/core/use-editor-changeset";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
-import { useEventListenerPlugin } from "@content-editor/core/use-event-listener-plugin";
 import { useRef } from "react";
+import { EditablePlugin } from ".";
+import { useEditablePluginStack } from "./use-editable-plugin-stack";
+import { useEventListenerPlugin } from "./use-event-listener-plugin";
 
 /**
  * Plugin that handles text input for both contenteditable and input/textarea elements.
@@ -43,7 +43,7 @@ export const useInlineMutationPlugin = <TBlock extends AnyBlock>({
         ? "update"
         : "splice") !== method;
 
-  return useEditorPlugins(
+  return useEditablePluginStack(
     useLazyInlineMutationPlugin({
       splice,
       debounceMs,
@@ -71,7 +71,7 @@ export const useEagerInlineMutationPlugin =
     disabled?: DisabledSlot<TBlock>;
     update: Update<TBlock>;
     autoCommit?: boolean;
-  }): EditorPlugin<TBlock> =>
+  }): EditablePlugin<TBlock> =>
   (editor) => {
     const selectionBeforeRef = useRef<SelectionRange>(null);
 
@@ -135,7 +135,7 @@ export const useLazyInlineMutationPlugin = <TBlock extends AnyBlock>({
   disabled?: DisabledSlot<TBlock>;
   debounceMs?: number | false;
   splice: Splice<TBlock>;
-}): EditorPlugin<TBlock> =>
+}): EditablePlugin<TBlock> =>
   useEventListenerPlugin("beforeinput", (editor) => {
     const changeset = useLazyEditorChangeset(editor, debounceMs);
 

@@ -89,8 +89,8 @@ export class History<Act, State> implements ReadOnlyHistory<State> {
 export class HistoryShim<A, B> implements ReadOnlyHistory<B> {
   constructor(
     private history: ReadOnlyHistory<A> & {
-      undo(): boolean;
-      redo(): boolean;
+      undo(dryRun?: boolean): boolean;
+      redo(dryRun?: boolean): boolean;
     },
     private map: (a: A) => B,
   ) {}
@@ -107,6 +107,11 @@ export class HistoryShim<A, B> implements ReadOnlyHistory<B> {
     return this.map(this.history.getState());
   }
 
-  undo = this.history.undo;
-  redo = this.history.redo;
+  undo(dryRun?: boolean) {
+    return this.history.undo(dryRun);
+  }
+
+  redo(dryRun?: boolean) {
+    return this.history.redo(dryRun);
+  }
 }

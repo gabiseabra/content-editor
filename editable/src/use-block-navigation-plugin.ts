@@ -1,10 +1,10 @@
 import {
   AnyBlock,
-  AnyEditorPlugin,
   ContentEditor,
   EditorRef,
   SelectionRange,
 } from "@content-editor/core";
+import { AnyEditablePlugin } from ".";
 
 /**
  * Plugin that enables arrow key navigation between blocks.
@@ -16,7 +16,7 @@ import {
  * | `ArrowUp` | Move to previous block, maintaining horizontal position |
  * | `ArrowDown` | Move to next block, maintaining horizontal position |
  */
-export const useBlockNavigationPlugin: AnyEditorPlugin = (editor) => () => ({
+export const useBlockNavigationPlugin: AnyEditablePlugin = (editor) => () => ({
   onKeyDown(event) {
     if (
       event.shiftKey ||

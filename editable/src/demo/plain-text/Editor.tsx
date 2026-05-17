@@ -1,6 +1,6 @@
 import { ContentEditor } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { useContentEditablePlugin } from "@content-editor/editable";
+import { useEditablePlugin } from "@content-editor/editable/use-editable-plugin";
 import { memo } from "react";
 import { PlainText } from "./model";
 
@@ -23,7 +23,7 @@ export const PlainTextEditor = memo(function PlainTextEditor(options: {
     id: options.id,
     initialValue: options.value.map((text, id) => ({ id, text })),
   });
-  const editable = useContentEditablePlugin(PlainText, {
+  const editable = useEditablePlugin(PlainText, {
     logging: true,
     autoCommit: true,
   })(editor);

@@ -1,6 +1,7 @@
 import { AnyBlock } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
+import { EditablePlugin } from "@content-editor/editable";
 import { useBlockNavigationPlugin } from "@content-editor/editable/use-block-navigation-plugin";
+import { useEditablePluginStack } from "@content-editor/editable/use-editable-plugin-stack";
 import { useHistoryPlugin } from "@content-editor/editable/use-history-plugin";
 import {
   Splice,
@@ -24,8 +25,8 @@ export function useCodePlugin<TBlock extends AnyBlock>(
     logging?: boolean | "verbose";
     onDelete?: () => void;
   },
-) {
-  return useEditorPlugins(
+): EditablePlugin<TBlock> {
+  return useEditablePluginStack(
     useEagerInlineMutationPlugin(strategy),
     useHistoryPlugin(),
     useCodeIndentPlugin({

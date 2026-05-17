@@ -1,7 +1,7 @@
+import { AnyBlock } from "@content-editor/core";
 import { unique } from "@content-editor/utils/array";
 import { keys } from "@content-editor/utils/object";
-import { AnyBlock } from "../editor";
-import { EditableProps, EditorPlugin } from "../editor/plugin";
+import { EditablePlugin, EditableProps } from ".";
 
 /**
  * Composes multiple plugins into a single plugin.
@@ -12,9 +12,9 @@ import { EditableProps, EditorPlugin } from "../editor/plugin";
  * until one calls `e.stopPropagation()`, which stops the chain. This means
  * earlier plugins in the composition have priority.
  */
-export function useEditorPlugins<TBlock extends AnyBlock>(
-  ...plugins: EditorPlugin<TBlock>[]
-): EditorPlugin<TBlock> {
+export function useEditablePluginStack<TBlock extends AnyBlock>(
+  ...plugins: EditablePlugin<TBlock>[]
+): EditablePlugin<TBlock> {
   return (editor) => {
     const appliedPlugins = plugins.map((p) => p(editor));
 

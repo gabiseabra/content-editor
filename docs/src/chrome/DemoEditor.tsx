@@ -1,11 +1,11 @@
 import { CodeBlock } from "@content-editor/code/demo/Block";
 import { Code } from "@content-editor/code/demo/model";
-import { ContentEditor } from "@content-editor/core";
+import { ContentEditor, EditorProjection } from "@content-editor/core";
 import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { useEditorPrism } from "@content-editor/core/use-editor-prism";
-import { ContentEditableOptions } from "@content-editor/editable";
+import { useEditorProjection } from "@content-editor/core/use-editor-projection";
 import { RichTextBlock } from "@content-editor/editable/demo/rich-text/Block";
 import { RichText } from "@content-editor/editable/demo/rich-text/model";
+import { EditablePluginOptions } from "@content-editor/editable/use-editable-plugin";
 import { Prism } from "@content-editor/utils/optics";
 import PrismJS from "prismjs";
 import "prismjs/components/prism-javascript";
@@ -24,7 +24,7 @@ export function DemoEditor({
   value,
   onChange,
   ...options
-}: ContentEditableOptions & {
+}: EditablePluginOptions & {
   id: string;
   value: DemoBlock[];
   onChange?: (blocks: DemoBlock[]) => void;
@@ -58,37 +58,29 @@ function DemoTextBlock({
   id,
   editor,
   ...options
-}: ContentEditableOptions & {
+}: EditablePluginOptions & {
   id: number;
   editor: ContentEditor<DemoBlock>;
 }) {
-  const textEditor = useEditorPrism<DemoBlock, RichText>({
-    id,
+  const textEditor = useEditorProjection<DemoBlock, RichText>({
     editor,
-    prism: Prism.fromGuard((b): b is RichText => b.type !== "code"),
+    projection: EditorProjection.fromGuard((b) => b.type !== "code"),
   });
 
-  return (
-    <RichTextBlock
-      editor={textEditor}
-      filter={(b) => b.id === id}
-      {...options}
-    />
-  );
+  return <RichTextBlock editor={textEditor} {...options} />;
 }
 
 function DemoCodeBlock({
   id,
   editor,
   ...options
-}: ContentEditableOptions & {
+}: EditablePluginOptions & {
   id: number;
   editor: ContentEditor<DemoBlock>;
 }) {
-  const codeEditor = useEditorPrism<DemoBlock, Code>({
-    id,
+  const codeEditor = useEditorProjection<DemoBlock, Code>({
     editor,
-    prism: Prism.fromGuard((b): b is Code => b.type === "code"),
+    projection: EditorProjection.fromGuard((b) => b.type === "code"),
   });
 
   return (

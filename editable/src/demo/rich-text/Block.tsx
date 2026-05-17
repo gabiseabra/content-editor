@@ -1,9 +1,9 @@
 import { ContentEditor } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
 import {
-  ContentEditableOptions,
-  useContentEditablePlugin,
-} from "@content-editor/editable";
+  EditablePluginOptions,
+  useEditablePlugin,
+} from "@content-editor/editable/use-editable-plugin";
+import { useEditablePluginStack } from "@content-editor/editable/use-editable-plugin-stack";
 import { useHotkeyPlugin } from "@content-editor/editable/use-hotkey-plugin";
 import { escapeHTML } from "@content-editor/utils/escape-html";
 import { memo } from "react";
@@ -13,39 +13,35 @@ import { Span } from "./Span";
 
 export const RichTextBlock = memo(function RichTextBlock({
   editor,
-  filter,
   ...options
-}: ContentEditableOptions & {
+}: EditablePluginOptions & {
   editor: ContentEditor<RichText>;
-  filter?: (block: RichText) => boolean;
 }) {
-  const editable = useEditorPlugins(
+  const editable = useEditablePluginStack(
     useHotkeyPlugin(`${ModKey}+b`, toggleAnnotation("bold")),
     useHotkeyPlugin(`${ModKey}+i`, toggleAnnotation("italic")),
     useHotkeyPlugin(`${ModKey}+u`, toggleAnnotation("underline")),
-    useContentEditablePlugin(RichText, options),
+    useEditablePlugin(RichText, options),
   )(editor);
 
-  return (filter ? editor.blocks.filter(filter) : editor.blocks).map(
-    (block) => {
-      const props = {
-        ref: editor.ref(block.id),
-        ...contentProps(block.text),
-        ...editable(block),
-      };
+  return editor.blocks.map((block) => {
+    const props = {
+      ref: editor.ref(block.id),
+      ...contentProps(block.text),
+      ...editable(block),
+    };
 
-      switch (block.type) {
-        case "heading":
-          return <h1 key={block.id} {...props} />;
-        case "subheading":
-          return <h2 key={block.id} {...props} />;
-        case "text":
-          return <p key={block.id} {...props} />;
-        default:
-          return block satisfies never;
-      }
-    },
-  );
+    switch (block.type) {
+      case "heading":
+        return <h1 key={block.id} {...props} />;
+      case "subheading":
+        return <h2 key={block.id} {...props} />;
+      case "text":
+        return <p key={block.id} {...props} />;
+      default:
+        return block satisfies never;
+    }
+  });
 });
 
 const isMac = navigator.userAgent.match(/OS X 10/);
