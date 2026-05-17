@@ -148,7 +148,7 @@ export const useLazyInlineMutationPlugin = <TBlock extends AnyBlock>({
 
       if (!actualSelection || !currentBlock) return;
 
-      const targetBefore = changeset.latest?.targetAfter ?? {
+      const targetBefore = changeset.currentAction?.targetAfter ?? {
         id: block.id,
         ...actualSelection,
       };

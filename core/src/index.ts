@@ -21,5 +21,7 @@ export {
   type EditableProps,
   type EditorPlugin,
 } from "./editor/plugin";
+export { EditorProjection } from "./editor/projection";
 export { EditorRef } from "./editor/ref";
 export { EditorTarget } from "./editor/target";
+export { useEditorProjection } from "./hooks/use-editor-projection";

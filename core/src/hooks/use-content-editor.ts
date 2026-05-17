@@ -45,7 +45,7 @@ export function useContentEditor<TBlock extends AnyBlock>({
   const editor = useMemo<ContentEditor<TBlock>>(
     () =>
       autoBind({
-        get latest() {
+        get currentAction() {
           return history.action;
         },
 

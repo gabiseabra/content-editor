@@ -85,3 +85,28 @@ export class History<Act, State> implements ReadOnlyHistory<State> {
     return h;
   }
 }
+
+export class HistoryShim<A, B> implements ReadOnlyHistory<B> {
+  constructor(
+    private history: ReadOnlyHistory<A> & {
+      undo(): boolean;
+      redo(): boolean;
+    },
+    private map: (a: A) => B,
+  ) {}
+
+  get position() {
+    return this.history.position;
+  }
+
+  get direction() {
+    return this.history.direction;
+  }
+
+  getState() {
+    return this.map(this.history.getState());
+  }
+
+  undo = this.history.undo;
+  redo = this.history.redo;
+}

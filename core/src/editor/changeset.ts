@@ -14,7 +14,7 @@ export interface EditorChangeset<TBlock extends AnyBlock> {
    * Latest action that has been pushed but not yet commited.
    * `null` if no changes are pending.
    */
-  readonly latest:
+  readonly currentAction:
     | (EditorAction<TBlock> & {
         targetBefore: EditorTarget<TBlock>;
         targetAfter: EditorTarget<TBlock>;

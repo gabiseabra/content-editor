@@ -30,7 +30,7 @@ export function useEditorChangeset<TBlock extends AnyBlock>(
 
   const changeset = useMemo<EditorChangeset<TBlock>>(
     () => ({
-      get latest() {
+      get currentAction() {
         const { actions, targetBefore, targetAfter } = changesetRef.current;
         if (!NonEmpty.isNonEmpty(actions)) return null;
         return {
@@ -87,7 +87,7 @@ export function useEditorChangeset<TBlock extends AnyBlock>(
 
   function flush(data?: unknown) {
     const { batchId } = changesetRef.current;
-    const action = changeset.latest;
+    const action = changeset.currentAction;
 
     if (!action) return;
 

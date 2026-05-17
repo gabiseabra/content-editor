@@ -91,10 +91,12 @@ export function restoreSelection(
 ) {
   const direction = editor.history.direction;
 
-  if (!editor.latest) return;
+  if (!editor.currentAction) return;
 
   const { id, childId, ...selection } =
-    direction === 1 ? editor.latest.targetAfter : editor.latest.targetBefore;
+    direction === 1
+      ? editor.currentAction.targetAfter
+      : editor.currentAction.targetBefore;
   const element = childId
     ? editor.ref(id).children.get(childId)
     : editor.ref(id).element;
