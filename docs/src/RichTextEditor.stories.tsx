@@ -1,6 +1,6 @@
-import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { RichTextEditable } from "@content-editor/editable/demo/rich-text/Editable";
-import { p, span } from "@content-editor/editable/demo/rich-text/factory";
+import { RichTextEditable } from "@ce/editable/demo/rich-text/Editable";
+import { p, span } from "@ce/editable/demo/rich-text/factory";
+import { useContentEditor } from "@ce/editor/use-content-editor";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta<typeof RichTextEditable> = {

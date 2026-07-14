@@ -1,6 +1,6 @@
-import { ContentEditor } from "@content-editor/core";
-import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { ContentEditableOptions } from "@content-editor/editable";
+import { ContentEditableOptions } from "@ce/editable";
+import { ContentEditor } from "@ce/editor";
+import { useContentEditor } from "@ce/editor/use-content-editor";
 import { Ref, useImperativeHandle } from "react";
 import { RichTextBlock } from ".";
 import { RichTextEditable } from "./Editable";

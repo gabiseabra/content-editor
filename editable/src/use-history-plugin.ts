@@ -1,8 +1,8 @@
-import { AnyBlock, AnyEditorPlugin, ContentEditor } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
-import { useEventListener } from "@content-editor/core/use-event-listener";
-import { ANSI } from "@content-editor/utils/ansi";
-import { SelectionRange } from "@content-editor/utils/selection-range";
+import { ANSI } from "@ce/common/ansi";
+import { SelectionRange } from "@ce/common/selection-range";
+import { AnyBlock, AnyEditorPlugin, ContentEditor } from "@ce/editor";
+import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
+import { useEventListener } from "@ce/editor/use-event-listener";
 import { KeyboardEvent } from "react";
 
 /** Composed plugin that combines history restoration and undo/redo keyboard events. */

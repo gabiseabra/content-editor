@@ -3,7 +3,7 @@ import {
   EditorCommand,
   EditorPlugin,
   EditorTarget,
-} from "@content-editor/core";
+} from "@ce/editor";
 
 type Mod = "Ctrl" | "Alt" | "Shift" | "Meta";
 type Key =

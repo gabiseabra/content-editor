@@ -3,11 +3,7 @@
   "compilerOptions": {
     "rootDir": "..",
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "cypress",
-      "cypress-real-events",
-    ],
+    "types": ["vite/client", "cypress", "cypress-real-events"],
     "outDir": "./dist/cy",
     "tsBuildInfoFile": "dist/cy/.tsbuildinfo"
   },
@@ -16,11 +12,7 @@
     "src/**/*.tsx",
     "src/**/*.cy.ts",
     "src/**/*.cy.tsx",
-    "../test/cypress/**/*.ts",
+    "../test/cypress/**/*.ts"
   ],
-  "exclude": [
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/test-utils/**/*",
-  ]
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test-utils/**/*"]
 }

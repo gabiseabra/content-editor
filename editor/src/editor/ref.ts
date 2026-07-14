@@ -1,4 +1,4 @@
-import { isNonNullable } from "@content-editor/utils/non-nullable";
+import { isNonNullable } from "@ce/common/non-nullable";
 import { AnyBlock, ContentEditor, ID } from "./index.js";
 
 export type EditorRef<TBlock extends AnyBlock> = {

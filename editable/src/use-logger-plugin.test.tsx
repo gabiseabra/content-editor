@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { ContentEditor, EditorEvent } from "@content-editor/core";
-import { useContentEditor } from "@content-editor/core/use-content-editor";
+import { ContentEditor, EditorEvent } from "@ce/editor";
+import { useContentEditor } from "@ce/editor/use-content-editor";
 import { render } from "@testing-library/react";
 import { act, Ref, RefObject, useImperativeHandle } from "react";
 import { useLoggerPlugin } from "./use-logger-plugin.js";

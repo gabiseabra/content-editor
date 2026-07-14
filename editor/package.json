@@ -1,5 +1,5 @@
 {
-  "name": "@content-editor/core",
+  "name": "@ce/editor",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -52,7 +52,7 @@
     "react": "^19.2.3"
   },
   "dependencies": {
-    "@content-editor/utils": "*",
+    "@ce/common": "*",
     "typescript-event-target": "^1.1.2"
   },
   "devDependencies": {

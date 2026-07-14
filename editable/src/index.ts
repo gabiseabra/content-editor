@@ -1,5 +1,5 @@
-import { AnyBlock } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
+import { AnyBlock } from "@ce/editor";
+import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
 import { useAutoCommitPlugin } from "./use-auto-commit-plugin";
 import {
   Cascade,

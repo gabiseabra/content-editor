@@ -2,16 +2,16 @@
   "files": [],
   "references": [
     {
-      "path": "./core"
+      "path": "./common"
     },
     {
-      "path": "./docs"
+      "path": "./editor"
     },
     {
       "path": "./editable"
     },
     {
-      "path": "./utils"
-    },
+      "path": "./docs"
+    }
   ]
 }

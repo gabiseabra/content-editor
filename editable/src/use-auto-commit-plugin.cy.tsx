@@ -1,4 +1,4 @@
-import { SelectionRange } from "@content-editor/core";
+import { SelectionRange } from "@ce/common/selection-range";
 import { RichTextEditor } from "./demo/rich-text/Editor";
 import { p, span } from "./demo/rich-text/factory";
 

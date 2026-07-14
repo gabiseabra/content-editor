@@ -4,18 +4,10 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-    "types": [
-      "jest",
-      "@testing-library/jest-dom",
-    ],
+    "types": ["jest", "@testing-library/jest-dom"],
     "outDir": "./dist",
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
-  "include": [
-    "src/**/*",
-  ],
-  "exclude": [
-    "src/**/*.cy.ts",
-    "src/**/*.cy.tsx"
-  ],
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.cy.ts", "src/**/*.cy.tsx"]
 }

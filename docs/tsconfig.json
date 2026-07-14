@@ -7,15 +7,12 @@
     "noEmit": true,
     "outDir": "./dist",
     "tsBuildInfoFile": "dist/.tsbuildinfo",
-    "types": ["@content-editor/utils"]
+    "types": ["@ce/common"]
   },
-  "include": [
-    "src/**/*",
-    ".storybook/**/*"
-  ],
+  "include": ["src/**/*", ".storybook/**/*"],
   "references": [
-    { "path": "../core" },
+    { "path": "../editor" },
     { "path": "../editable" },
-    { "path": "../utils" }
+    { "path": "../common" }
   ]
 }

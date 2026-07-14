@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { SelectionRange } from "@content-editor/core";
-import { inputEvent } from "@content-editor/utils/test/input-event";
+import { SelectionRange } from "@ce/common/selection-range";
+import { inputEvent } from "@ce/common/test/input-event";
 import { fireEvent, render } from "@testing-library/react";
 import { act } from "react";
 import { RichTextEditor } from "./demo/rich-text/Editor";

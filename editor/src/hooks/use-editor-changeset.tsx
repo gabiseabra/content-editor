@@ -1,4 +1,4 @@
-import { NonEmpty } from "@content-editor/utils/non-empty";
+import { NonEmpty } from "@ce/common/non-empty";
 import { useMemo, useRef } from "react";
 import { AnyBlock, ContentEditor } from "../editor";
 import { EditorChangeset } from "../editor/changeset";

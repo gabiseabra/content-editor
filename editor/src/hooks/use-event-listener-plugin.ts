@@ -1,4 +1,4 @@
-import { isNonNullable } from "@content-editor/utils/non-nullable";
+import { isNonNullable } from "@ce/common/non-nullable";
 import { useEffect } from "react";
 import { AnyBlock } from "../editor";
 import { EditorPlugin } from "../editor/plugin";

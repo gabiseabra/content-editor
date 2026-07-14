@@ -1,5 +1,5 @@
-import { unique } from "@content-editor/utils/array";
-import { keys } from "@content-editor/utils/object";
+import { unique } from "@ce/common/array";
+import { keys } from "@ce/common/object";
 import { AnyBlock } from "../editor";
 import { EditableProps, EditorPlugin } from "../editor/plugin";
 

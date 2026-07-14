@@ -1,6 +1,6 @@
-import { ContentEditor } from "@content-editor/core";
-import { useContentEditor } from "@content-editor/core/use-content-editor";
-import { useContentEditablePlugin } from "@content-editor/editable";
+import { useContentEditablePlugin } from "@ce/editable";
+import { ContentEditor } from "@ce/editor";
+import { useContentEditor } from "@ce/editor/use-content-editor";
 import { memo } from "react";
 import { PlainTextBlock } from ".";
 

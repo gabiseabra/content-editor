@@ -1,4 +1,4 @@
-import { autoBind } from "@content-editor/utils/object";
+import { autoBind } from "@ce/common/object";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnyBlock, ContentEditor } from "../editor";
 import { execCommand } from "../editor/command";

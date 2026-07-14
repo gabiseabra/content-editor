@@ -1,5 +1,5 @@
 {
-  "name": "@content-editor/utils",
+  "name": "@ce/common",
   "version": "0.0.0",
   "type": "module",
   "exports": {

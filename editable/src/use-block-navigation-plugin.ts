@@ -1,4 +1,5 @@
-import { AnyEditorPlugin, SelectionRange } from "@content-editor/core";
+import { SelectionRange } from "@ce/common/selection-range";
+import { AnyEditorPlugin } from "@ce/editor";
 
 /**
  * Plugin that enables arrow key navigation between blocks.

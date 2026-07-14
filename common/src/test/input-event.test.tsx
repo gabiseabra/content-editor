@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { SelectionRange } from "@content-editor/utils/selection-range";
+import { SelectionRange } from "@ce/common/selection-range";
 import { render } from "@testing-library/react";
 import { inputEvent } from "./input-event.js";
 

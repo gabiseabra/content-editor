@@ -1,14 +1,10 @@
-import {
-  AnyBlock,
-  ContentEditor,
-  EditorPlugin,
-  SelectionRange,
-  Slot,
-  SpliceRange,
-} from "@content-editor/core";
-import { useLazyEditorChangeset } from "@content-editor/core/use-editor-changeset";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
-import { useEventListenerPlugin } from "@content-editor/core/use-event-listener-plugin";
+import { SelectionRange } from "@ce/common/selection-range";
+import { Slot } from "@ce/common/slot";
+import { SpliceRange } from "@ce/common/splice-range";
+import { AnyBlock, ContentEditor, EditorPlugin } from "@ce/editor";
+import { useLazyEditorChangeset } from "@ce/editor/use-editor-changeset";
+import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
+import { useEventListenerPlugin } from "@ce/editor/use-event-listener-plugin";
 import { useRef } from "react";
 
 /**

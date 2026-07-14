@@ -1,10 +1,7 @@
-import { ContentEditor } from "@content-editor/core";
-import { useEditorPlugins } from "@content-editor/core/use-editor-plugins";
-import {
-  ContentEditableOptions,
-  useContentEditablePlugin,
-} from "@content-editor/editable";
-import { useHotkeyPlugin } from "@content-editor/editable/use-hotkey-plugin";
+import { ContentEditableOptions, useContentEditablePlugin } from "@ce/editable";
+import { useHotkeyPlugin } from "@ce/editable/use-hotkey-plugin";
+import { ContentEditor } from "@ce/editor";
+import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
 import { memo } from "react";
 import { RichTextBlock } from ".";
 import { Block } from "./Block";

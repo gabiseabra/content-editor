@@ -1,3 +1,4 @@
+import { SelectionRange } from "@ce/common/selection-range";
 import {
   AnyBlock,
   ContentEditor,
@@ -5,8 +6,7 @@ import {
   EditorPlugin,
   EditorTarget,
   ID,
-  SelectionRange,
-} from "@content-editor/core";
+} from "@ce/editor";
 
 export type BlockMutationPluginOptions<TBlock extends AnyBlock> = {
   split: Split<TBlock>;

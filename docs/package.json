@@ -1,5 +1,5 @@
 {
-  "name": "@content-editor/docs",
+  "name": "@ce/docs",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -32,9 +32,9 @@
     "clean": "tsc -b --clean"
   },
   "dependencies": {
-    "@content-editor/core": "*",
-    "@content-editor/editable": "*",
-    "@content-editor/utils": "*",
+    "@ce/editor": "*",
+    "@ce/editable": "*",
+    "@ce/common": "*",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },

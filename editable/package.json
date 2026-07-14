@@ -1,5 +1,5 @@
 {
-  "name": "@content-editor/editable",
+  "name": "@ce/editable",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -84,6 +84,6 @@
     "clean": "tsc -b --clean && rm -rf dist"
   },
   "dependencies": {
-    "@content-editor/core": "*"
+    "@ce/editor": "*"
   }
 }

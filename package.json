@@ -1,11 +1,11 @@
 {
-  "name": "content-editor",
+  "name": "awesome-content-editor",
   "version": "0.0.0",
   "description": "",
   "workspaces": [
-    "core",
+    "common",
+    "editor",
     "editable",
-    "utils",
     "docs"
   ],
   "scripts": {

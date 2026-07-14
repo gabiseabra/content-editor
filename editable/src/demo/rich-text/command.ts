@@ -1,4 +1,5 @@
-import { EditorCommand, SelectionRange } from "@content-editor/core";
+import { SelectionRange } from "@ce/common/selection-range";
+import { EditorCommand } from "@ce/editor";
 import { RichTextBlock } from ".";
 
 export function toggleAnnotation(

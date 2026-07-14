@@ -1,5 +1,5 @@
-import { autoBind } from "@content-editor/utils/object";
-import { Traversal } from "@content-editor/utils/optics";
+import { autoBind } from "@ce/common/object";
+import { Traversal } from "@ce/common/optics";
 import { useEffect, useMemo, useRef } from "react";
 import { AnyBlock, ContentEditor, ID } from "../editor";
 import { execCommand } from "../editor/command";

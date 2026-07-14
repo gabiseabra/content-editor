@@ -7,7 +7,7 @@ import * as path from "path";
 const projectRoot = path.resolve(__dirname, "..");
 
 export default {
-  projects: (["core", "utils", "editable", "docs"] as const).map(
+  projects: (["editor", "common", "editable", "docs"] as const).map(
     (workspace): Config => ({
       displayName: workspace,
       rootDir: process.cwd(),

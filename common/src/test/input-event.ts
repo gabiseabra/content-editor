@@ -1,5 +1,5 @@
-import { SelectionRange } from "@content-editor/utils/selection-range";
-import { SpliceRange } from "@content-editor/utils/splice-range";
+import { SelectionRange } from "@ce/common/selection-range";
+import { SpliceRange } from "@ce/common/splice-range";
 import { fireEvent } from "@testing-library/react";
 import { act } from "react";
 

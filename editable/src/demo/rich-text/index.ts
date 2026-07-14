@@ -1,4 +1,4 @@
-import { keys } from "@content-editor/utils/object";
+import { keys } from "@ce/common/object";
 
 export type Annotations = {
   bold?: boolean;

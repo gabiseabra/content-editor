@@ -1,5 +1,5 @@
-import { AnyEditorPlugin, EditorTarget } from "@content-editor/core";
-import { SelectionRange } from "@content-editor/utils/selection-range";
+import { SelectionRange } from "@ce/common/selection-range";
+import { AnyEditorPlugin, EditorTarget } from "@ce/editor";
 import { useRef } from "react";
 
 /**

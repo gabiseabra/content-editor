@@ -5,11 +5,7 @@ export default defineConfig(() => ({
   plugins: [react()],
 
   optimizeDeps: {
-    exclude: [
-      "@content-editor/core",
-      "@content-editor/editable",
-      "@content-editor/utils",
-    ],
+    exclude: ["@ce/editor", "@ce/editable", "@ce/common"],
   },
   resolve: {
     preserveSymlinks: true,

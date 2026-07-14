@@ -1,6 +1,6 @@
-import { AnyBlock, EditorEvent, EditorPlugin } from "@content-editor/core";
-import { useEventListener } from "@content-editor/core/use-event-listener";
-import { ANSI } from "@content-editor/utils/ansi";
+import { ANSI } from "@ce/common/ansi";
+import { AnyBlock, EditorEvent, EditorPlugin } from "@ce/editor";
+import { useEventListener } from "@ce/editor/use-event-listener";
 
 /**
  * A plugin that logs all editor events to a provided callback.

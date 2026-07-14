@@ -1,4 +1,4 @@
-import { escapeHTML } from "@content-editor/utils/escape-html";
+import { escapeHTML } from "@ce/common/escape-html";
 import { HTMLAttributes, Ref } from "react";
 import { RichTextBlock } from ".";
 import { Span } from "./Span";

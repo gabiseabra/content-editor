@@ -1,5 +1,5 @@
-import { never } from "@content-editor/utils/error";
-import { SelectionRange } from "@content-editor/utils/selection-range";
+import { never } from "@ce/common/error";
+import { SelectionRange } from "@ce/common/selection-range";
 import type { MatcherFunction } from "expect";
 
 const toMatchVisualSelection: MatcherFunction<[expected: string]> = function (
