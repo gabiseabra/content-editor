@@ -32,10 +32,10 @@ export const useInlineMutationPlugin = <TBlock extends AnyBlock>({
    * or textarea element */
   update?: Update<TBlock>;
   /** Disable event handlers. */
-  disabled?: DisabledSlot<TBlock>;
+  disabled?: Slot<(data: SlotData<TBlock>) => boolean>;
 }) => {
   const isMethodDisabled =
-    (method: "update" | "splice"): DisabledSlot<TBlock> =>
+    (method: "update" | "splice"): Slot<(data: SlotData<TBlock>) => boolean> =>
     ({ id, editor }) =>
       !!update &&
       (editor.ref(id).element instanceof HTMLInputElement ||
@@ -68,7 +68,7 @@ export const useEagerInlineMutationPlugin =
     update,
     autoCommit = true,
   }: {
-    disabled?: DisabledSlot<TBlock>;
+    disabled?: Slot<(data: SlotData<TBlock>) => boolean>;
     update: Update<TBlock>;
     autoCommit?: boolean;
   }): EditorPlugin<TBlock> =>
@@ -132,7 +132,7 @@ export const useLazyInlineMutationPlugin = <TBlock extends AnyBlock>({
   debounceMs = 200,
   splice,
 }: {
-  disabled?: DisabledSlot<TBlock>;
+  disabled?: Slot<(data: SlotData<TBlock>) => boolean>;
   debounceMs?: number | false;
   splice: Splice<TBlock>;
 }): EditorPlugin<TBlock> =>
@@ -188,11 +188,8 @@ export type Splice<TBlock> = (
 /** Replaces a block's content with a new full string value. */
 export type Update<TBlock> = (block: TBlock, value: string) => TBlock;
 
-type DisabledSlot<TBlock extends AnyBlock> = Slot<
-  boolean,
-  {
-    id: TBlock["id"];
-    editor: ContentEditor<TBlock>;
-    event: InputEvent;
-  }
->;
+type SlotData<TBlock extends AnyBlock> = {
+  id: TBlock["id"];
+  editor: ContentEditor<TBlock>;
+  event: InputEvent;
+};

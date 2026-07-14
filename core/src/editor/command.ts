@@ -38,7 +38,7 @@ export type ExecCommand<
 export const execCommand =
   <TBlock extends AnyBlock, TData>(
     editor: ContentEditor<TBlock>,
-    data: Slot<TData>,
+    data: Slot<() => TData>,
     block?: TBlock,
     childId?: ID,
   ) =>
@@ -50,7 +50,7 @@ export const execCommand =
       currentBlock &&
       command({
         block: currentBlock,
-        data: Slot.extract(data, undefined),
+        data: Slot.extract(data),
         editor,
       });
 
