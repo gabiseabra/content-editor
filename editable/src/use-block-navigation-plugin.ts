@@ -1,5 +1,6 @@
 import { SelectionRange } from "@ce/common/selection-range";
-import { AnyEditorPlugin } from "@ce/editor";
+import { AnyBlock } from "@ce/editor";
+import { EditablePlugin } from "./plugin";
 
 /**
  * Plugin that enables arrow key navigation between blocks.
@@ -11,7 +12,7 @@ import { AnyEditorPlugin } from "@ce/editor";
  * | `ArrowUp` | Move to previous block, maintaining horizontal position |
  * | `ArrowDown` | Move to next block, maintaining horizontal position |
  */
-export const useBlockNavigationPlugin: AnyEditorPlugin =
+export const useBlockNavigationPlugin: EditablePlugin<AnyBlock> =
   (editor) => (block) => ({
     onKeyDown(e) {
       const selection = SelectionRange.read(e.currentTarget);

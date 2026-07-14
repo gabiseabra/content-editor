@@ -1,6 +1,7 @@
 import { ANSI } from "@ce/common/ansi";
-import { AnyBlock, EditorEvent, EditorPlugin } from "@ce/editor";
+import { AnyBlock, EditorEvent } from "@ce/editor";
 import { useEventListener } from "@ce/editor/use-event-listener";
+import { EditablePlugin } from "./plugin";
 
 /**
  * A plugin that logs all editor events to a provided callback.
@@ -8,7 +9,7 @@ import { useEventListener } from "@ce/editor/use-event-listener";
 export const useLoggerPlugin =
   <TBlock extends AnyBlock>(
     log: (event: EditorEvent<TBlock>) => void,
-  ): EditorPlugin<TBlock> =>
+  ): EditablePlugin<TBlock> =>
   (editor) => {
     useEventListener(editor.bus, "push", log);
     useEventListener(editor.bus, "commit", log);

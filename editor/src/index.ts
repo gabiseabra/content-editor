@@ -12,10 +12,6 @@ export {
   type EditorActionBatch,
   type EditorActionCmd,
 } from "./editor/history";
-export {
-  type AnyEditorPlugin,
-  type EditableProps,
-  type EditorPlugin,
-} from "./editor/plugin";
+export { type AnyEditorPlugin, type EditorPlugin } from "./editor/plugin";
 export { EditorRef } from "./editor/ref";
 export { EditorTarget } from "./editor/target";

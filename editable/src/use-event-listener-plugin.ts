@@ -1,7 +1,7 @@
 import { isNonNullable } from "@ce/common/non-nullable";
+import { AnyBlock, EditorPlugin } from "@ce/editor";
 import { useEffect } from "react";
-import { AnyBlock } from "../editor";
-import { EditorPlugin } from "../editor/plugin";
+import { EditablePlugin } from "./plugin";
 
 /**
  * Creates a plugin that attaches a native DOM event listener to all editor blocks.
@@ -12,7 +12,7 @@ export function useEventListenerPlugin<
 >(
   eventType: K,
   plugin: EditorPlugin<TBlock, (e: HTMLElementEventMap[K]) => void>,
-): EditorPlugin<TBlock> {
+): EditablePlugin<TBlock> {
   return (editor) => {
     const editable = plugin(editor);
 

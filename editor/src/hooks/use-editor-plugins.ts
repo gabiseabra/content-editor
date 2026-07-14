@@ -1,7 +1,6 @@
-import { unique } from "@ce/common/array";
-import { keys } from "@ce/common/object";
+import { Slot } from "@ce/common/slot";
 import { AnyBlock } from "../editor";
-import { EditableProps, EditorPlugin } from "../editor/plugin";
+import { AnyEditorPlugin, EditorPlugin } from "../editor/plugin";
 
 /**
  * Composes multiple plugins into a single plugin.
@@ -12,27 +11,22 @@ import { EditableProps, EditorPlugin } from "../editor/plugin";
  * until one calls `e.stopPropagation()`, which stops the chain. This means
  * earlier plugins in the composition have priority.
  */
-export function useEditorPlugins<TBlock extends AnyBlock>(
-  ...plugins: EditorPlugin<TBlock>[]
-): EditorPlugin<TBlock> {
-  return (editor) => {
+export const useEditorPlugins =
+  <TBlock extends AnyBlock, TProps>(
+    plugins: (EditorPlugin<TBlock, TProps> | AnyEditorPlugin<TProps>)[],
+    reducer: (
+      acc: TProps,
+      plugin: TProps,
+      currentIndex: number,
+      plugins: TProps[],
+    ) => TProps,
+    initialValue: Slot<(plugins: TProps[]) => TProps>,
+  ): EditorPlugin<TBlock, TProps> =>
+  (editor) => {
     const appliedPlugins = plugins.map((p) => p(editor));
 
     return (block) => {
-      const handlers = appliedPlugins.map((p) => p(block));
-
-      const events = unique(handlers.flatMap((props) => keys(props)));
-
-      return events.reduce<EditableProps>((props, key) => {
-        props[key] = (e) => {
-          for (const _props of handlers) {
-            // ugh....
-            (_props[key] as ((event: typeof e) => void) | undefined)?.(e);
-            if (e.isPropagationStopped()) return;
-          }
-        };
-        return props;
-      }, {});
+      const ps = appliedPlugins.map((p) => p(block));
+      return ps.reduce(reducer, Slot.extract(initialValue, ps));
     };
   };
-}

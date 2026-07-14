@@ -1,9 +1,9 @@
 import { ContentEditableOptions, useContentEditablePlugin } from "@ce/editable";
 import { useHotkeyPlugin } from "@ce/editable/use-hotkey-plugin";
 import { ContentEditor } from "@ce/editor";
-import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
 import { memo } from "react";
 import { RichTextBlock } from ".";
+import { useEditablePlugins } from "../../plugin";
 import { Block } from "./Block";
 import { toggleAnnotation } from "./command";
 
@@ -13,7 +13,7 @@ export const RichTextEditable = memo(function RichTextEditor({
 }: ContentEditableOptions & {
   editor: ContentEditor<RichTextBlock>;
 }) {
-  const editable = useEditorPlugins(
+  const editable = useEditablePlugins(
     useHotkeyPlugin(`${ModKey}+b`, toggleAnnotation("bold")),
     useHotkeyPlugin(`${ModKey}+i`, toggleAnnotation("italic")),
     useHotkeyPlugin(`${ModKey}+u`, toggleAnnotation("underline")),

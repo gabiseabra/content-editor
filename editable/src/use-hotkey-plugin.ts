@@ -1,9 +1,5 @@
-import {
-  AnyBlock,
-  EditorCommand,
-  EditorPlugin,
-  EditorTarget,
-} from "@ce/editor";
+import { AnyBlock, EditorCommand, EditorTarget } from "@ce/editor";
+import { EditablePlugin } from "./plugin";
 
 type Mod = "Ctrl" | "Alt" | "Shift" | "Meta";
 type Key =
@@ -50,7 +46,7 @@ export const useHotkeyPlugin =
   <TBlock extends AnyBlock>(
     hotkey: Hotkey | Hotkey[],
     command: EditorCommand<TBlock>,
-  ): EditorPlugin<TBlock> =>
+  ): EditablePlugin<TBlock> =>
   (editor) =>
   (block) => ({
     onKeyDown(e) {

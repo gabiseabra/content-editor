@@ -3,10 +3,10 @@ import {
   AnyBlock,
   ContentEditor,
   EditorActionCmd,
-  EditorPlugin,
   EditorTarget,
   ID,
 } from "@ce/editor";
+import { EditablePlugin } from "./plugin";
 
 export type BlockMutationPluginOptions<TBlock extends AnyBlock> = {
   split: Split<TBlock>;
@@ -41,7 +41,7 @@ export const useBlockMutationPlugin =
     cascade,
     previous = (block, editor) =>
       EditorTarget.tab({ id: block.id }, editor, -1),
-  }: BlockMutationPluginOptions<TBlock>): EditorPlugin<TBlock> =>
+  }: BlockMutationPluginOptions<TBlock>): EditablePlugin<TBlock> =>
   (editor) =>
   (block) => ({
     onKeyDown(e) {

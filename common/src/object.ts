@@ -22,3 +22,16 @@ export function autoBind<T extends object>(self: T): T {
     return self;
   }, self);
 }
+
+export function createRecord<const K extends PropertyKey, V>(
+  keys: readonly K[],
+  value: (key: K) => V,
+): Record<K, V> {
+  const out = {} as Record<K, V>;
+
+  for (const key of keys) {
+    out[key] = value(key);
+  }
+
+  return out;
+}

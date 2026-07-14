@@ -1,5 +1,5 @@
 import { AnyBlock } from "@ce/editor";
-import { useEditorPlugins } from "@ce/editor/use-editor-plugins";
+import { useEditablePlugins } from "./plugin";
 import { useAutoCommitPlugin } from "./use-auto-commit-plugin";
 import {
   Cascade,
@@ -32,7 +32,7 @@ export function useContentEditablePlugin<TBlock extends AnyBlock>(
   },
   options?: ContentEditableOptions,
 ) {
-  return useEditorPlugins(
+  return useEditablePlugins(
     useInlineMutationPlugin(strategy),
     useBlockMutationPlugin(strategy),
     useBlockNavigationPlugin,
